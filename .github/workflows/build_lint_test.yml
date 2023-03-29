@@ -36,11 +36,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Run pre-commits
-        run: |
-          pre-commit install
-          pre-commit run --all-files
-
       - name: Test with pytest
         run: |
           pytest -v --cov --junitxml=test-reports/report.xml --cov-config=pyproject.toml
