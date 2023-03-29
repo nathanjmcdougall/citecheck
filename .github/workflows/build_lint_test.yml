@@ -28,7 +28,8 @@ jobs:
 
       - name: Build
         run: |
-          python setup.py build_ext -q -j1
+          pip install build
+          python -m build
           python -m pip install -e . --no-build-isolation --no-index
 
       - name: Check Importable
