@@ -1,0 +1,51 @@
+# This workflow will install Python dependencies, pytest and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Build, Lint and Test
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          python --version
+          pip install --upgrade pip
+          pip install pip-tools
+          pip-sync requirements-ci.txt
+
+      - name: Build
+        run: |
+          python setup.py build_ext -q -j1
+          python -m pip install -e . --no-build-isolation --no-index
+
+      - name: Check Importable
+        run: |
+          python -c "import citecheck;"
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run pre-commits
+        run: |
+          pre-commit install
+          pre-commit run --all-files
+
+      - name: Test with pytest
+        run: |
+          pytest -v --cov --junitxml=test-reports/report.xml --cov-config=pyproject.toml --codecov

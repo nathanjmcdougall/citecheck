@@ -1,0 +1,109 @@
+# PEP 621 compliant file for project metadata
+# See here for more information:
+# https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata
+# https://www.python.org/dev/peps/pep-0621/
+# https://setuptools.pypa.io/en/latest/index.html
+
+[build-system]
+requires = ["setuptools", "setuptools_scm[toml]"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "citecheck"
+description = "Run-time protection of citation chains"
+authors = [
+  { name = "Nathan McDougall", email = "nathan.j.mcdougall@gmail.com" },
+]
+license = { file = "LICENSE.txt" }
+readme = "README.md"
+requires-python = ">=3.8"
+dynamic = ["version"]
+dependencies = []
+
+[project.optional-dependencies]
+doc = [
+  "tomli",
+  "towncrier",
+  "sphinx",
+  "pydata-sphinx-theme",
+  "sphinx-copybutton",
+  "sphinx-design",
+  "sphinx-toggleprompt",
+  "sphinx-favicon",
+]
+dev = ["pip-tools", "setuptools_scm[toml]", "black", "pylint", "ruff"]
+check = ["pre-commit"]
+test = ["pytest", "coverage[toml]", "pytest-cov"]
+notebook = ["ipykernel", "IPython"]
+
+[tool.setuptools_scm]
+write_to = "src/citecheck/_version.py"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["citecheck"]
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+[tool.towncrier]
+directory = "doc/source/whatsnew"
+package = "citecheck"
+package_dir = "src"
+title_format = "{version} ({project_date})"
+filename = "doc/source/whatsnew/releasenotes.rst"
+
+[tool.ruff]
+ignore = [
+  "F403", # We often use * imports in __init__.py files, and other uses will be checked by pylint
+]
+line-length = 88 # Sync with pylint
+target-version = "py311"
+
+[tool.pylint.messages_control]
+max-line-length = 88 # Sync with ruff and black
+disable = [
+  "line-too-long", # Already checked by Ruff
+]
+ignore-paths = ["^.venv/.*$", "src/.*/_version.py$"]
+
+[tool.black]
+line-length = 88 # Sync with pylint
+target-version = ['py38', 'py39', 'py310', 'py311']
+exclude = '''
+(
+  \.git
+  | \.venv
+  | setup.py
+)
+'''
+
+[tool.pytest]
+console_output_style = ['progress']
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+testpaths = ["tests"]
+
+[tool.isort]
+profile = "black"
+src_paths = ["src", "tests"]
+
+[tool.coverage.report]
+ignore_errors = true
+show_missing = true
+exclude_lines = [
+  # Don't complain if tests don't hit defensive assertion code:
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "AbstractMethodError",
+  # Don't complain if non-runnable code isn't run:
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+  "if 0:",
+  # Don't complain about missing debug-only code:
+  "def __repr__",
+  "if self\\.debug",
+  # Don't complain about abstract methods, they aren't run:
+  "@(abc\\.)?abstractmethod",
+]

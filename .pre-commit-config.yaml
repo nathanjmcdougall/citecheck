@@ -1,0 +1,64 @@
+default_stages:
+  [
+    commit,
+    merge-commit,
+    push,
+    prepare-commit-msg,
+    commit-msg,
+    post-checkout,
+    post-commit,
+    post-merge,
+    post-rewrite,
+    manual,
+  ]
+ci:
+  autofix_prs: false
+repos:
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: v0.12.1
+    hooks:
+      - id: validate-pyproject
+
+  - repo: https://github.com/MarcoGorelli/absolufy-imports
+    rev: v0.3.1
+    hooks:
+      - id: absolufy-imports
+        files: ^src/
+
+  - repo: https://github.com/python/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/lk16/detect-missing-init
+    rev: v0.1.6
+    hooks:
+      - id: detect-missing-init
+        args: ["--create", "--python-folders", "src/citecheck,tests"]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.0.259"
+    hooks:
+      - id: ruff
+
+  - repo: https://github.com/pycqa/pylint
+    rev: v2.17.0
+    hooks:
+      - id: pylint
+        args: ["--disable", "fixme"]
+
+  - repo: local
+    hooks:
+      - id: setuptools_scm
+        name: setuptools_scm
+        entry: python -m setuptools_scm -c
+        additional_dependencies: [setuptools_scm]
+        language: python
+        files: ^pyproject.toml$
