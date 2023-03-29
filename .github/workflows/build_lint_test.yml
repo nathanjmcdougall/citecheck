@@ -24,17 +24,12 @@ jobs:
         run: |
           python --version
           pip install --upgrade pip
-          pip install pip-tools
-          pip-sync requirements-ci.txt
+          pip install -r requirements-ci.txt
 
       - name: Build
         run: |
-          python setup.py build_ext -q -j1
-          python -m pip install -e . --no-build-isolation --no-index
-
-      - name: Check Importable
-        run: |
-          python -c "import citecheck;"
+          pip install build
+          python -m build
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -48,4 +43,4 @@ jobs:
 
       - name: Test with pytest
         run: |
-          pytest -v --cov --junitxml=test-reports/report.xml --cov-config=pyproject.toml --codecov
+          pytest -v --cov --junitxml=test-reports/report.xml --cov-config=pyproject.toml

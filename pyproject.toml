@@ -63,6 +63,7 @@ target-version = "py311"
 [tool.pylint.messages_control]
 max-line-length = 88 # Sync with ruff and black
 disable = [
+  "import-error",  # When pre-commits are running we don't necessarily have everything installed.
   "line-too-long", # Already checked by Ruff
 ]
 ignore-paths = ["^.venv/.*$", "src/.*/_version.py$"]
