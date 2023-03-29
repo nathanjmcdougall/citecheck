@@ -52,7 +52,7 @@ repos:
     rev: v2.17.0
     hooks:
       - id: pylint
-        args: ["--disable", "fixme"]
+        args: ["--disable", "fixme", --ignore-patterns="^docs/source/conf.py$"]
 
   - repo: local
     hooks:
