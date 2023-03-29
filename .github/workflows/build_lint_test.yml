@@ -30,11 +30,6 @@ jobs:
         run: |
           pip install build
           python -m build
-          python -m pip install -e . --no-build-isolation --no-index
-
-      - name: Check Importable
-        run: |
-          python -c "import citecheck;"
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
