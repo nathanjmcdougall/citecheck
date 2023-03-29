@@ -1,7 +1,5 @@
 """Configuration file for the Sphinx documentation builder."""
 
-import importlib
-import sys
 from pathlib import Path
 
 import tomli
@@ -12,16 +10,16 @@ ROOT_PATH = Path(__file__).parent.parent.parent
 
 with open(ROOT_PATH / "pyproject.toml", mode="rb") as f:
     _pyproject = tomli.load(f)
-(_pkg_name,) = _pyproject["tool"]["setuptools"]["packages"]
-sys.path.append(str(ROOT_PATH / "src"))
-_version = importlib.import_module(f"{_pkg_name}._version").__version__
-
 
 _project = _pyproject["project"]
 _name = _project["name"]
 _authors = _project["authors"]
 _first_author = _authors[0]["name"]
 _description = _project["description"]
+language = "en"
+source_suffix = [".rst"]
+source_encoding = "utf-8"
+
 
 extensions = [
     "sphinx_copybutton",
@@ -42,7 +40,6 @@ extensions = [
 ]
 
 name = _name
-version = _version
 author = _first_author
 description = _description
 
@@ -74,4 +71,4 @@ def linkcode_resolve(domain, info):
     if not info["module"]:
         return None
     filename = info["module"].replace(".", "/")
-    return f"https://github.com/joinplex-dev/joinplex/{filename}.py"
+    return f"https://github.com/nathanjmcdougall/citecheck/{filename}.py"
