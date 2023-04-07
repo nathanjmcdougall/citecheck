@@ -4,7 +4,7 @@ from typing import TypeVar
 import pytest
 
 from citecheck.core.cited import Cited
-from citecheck.core.types.citand import Citand
+from citecheck.core.types.citable import Citable
 
 
 class TestCited:
@@ -33,7 +33,7 @@ class TestCited:
         assert my_func(5) == 5
 
     def test_typevar_hint(self):
-        T = TypeVar("T", bound=Citand)
+        T = TypeVar("T", bound=Citable)
 
         def my_func(value: T) -> T:
             return Cited[int](value, _citation="math")

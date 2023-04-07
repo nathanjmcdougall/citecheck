@@ -1,14 +1,14 @@
 """A type for objects cited with a citation."""
 from typing import Generic, TypeVar
 
-from citecheck.core.types.citand import Citand
+from citecheck.core.types.citable import Citable
 from citecheck.core.types.citation import Citation
 
-T = TypeVar("T", bound=Citand)
+T = TypeVar("T", bound=Citable)
 
 
 class _BaseCited:
-    def __new__(cls, value: Citand, _citation: Citation | None = None):
+    def __new__(cls, value: Citable, _citation: Citation | None = None):
         self = super().__new__(cls, value)
         self._citation = _citation
         return self
