@@ -1,4 +1,4 @@
 """Citation class."""
-from typing import Any, NewType
+from typing import NewType
 
-Citation = NewType("Citation", Any)
+Citation = NewType("Citation", object)
