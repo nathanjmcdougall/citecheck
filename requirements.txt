@@ -147,7 +147,7 @@ ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.2
     # via stack-data
-pydata-sphinx-theme==0.13.1
+pydata-sphinx-theme==0.13.3
     # via citecheck (pyproject.toml)
 pygments==2.14.0
     # via
