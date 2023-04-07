@@ -24,7 +24,9 @@ class Cited(Generic[T]):
     """A type for objects cited with a citation."""
 
     def __class_getitem__(cls, item: type[T]) -> type[T]:
-        class _Cited(_CitedMixin, item):
+        citable_type = item
+
+        class _Cited(_CitedMixin, citable_type):
             pass
 
         return _Cited
