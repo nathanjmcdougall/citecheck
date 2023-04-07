@@ -24,7 +24,7 @@ jobs:
         run: |
           python --version
           pip install --upgrade pip
-          pip install -r requirements-ci.txt
+          pip install -r ci-requirements.txt
 
       - name: Build
         run: |
