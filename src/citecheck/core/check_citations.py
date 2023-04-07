@@ -3,7 +3,7 @@ import inspect
 from typing import Any, Callable, TypeVar
 
 from citecheck.core.citeas import _BaseCiteAs
-from citecheck.core.cited import _BaseCited
+from citecheck.core.cited import _CitedMixin
 from citecheck.core.errors import CitationError, CitationWarning
 
 C = TypeVar("C", bound=Any)
@@ -37,7 +37,7 @@ def check_citations(
             # Iterate over the function arguments
             for arg_name, arg_value in bound_args.arguments.items():
                 # Check if the argument is cited
-                if isinstance(arg_value, _BaseCited):
+                if isinstance(arg_value, _CitedMixin):
                     # Check if the argument is annotated
                     if arg_name in anns:
                         ann = anns[arg_name]
