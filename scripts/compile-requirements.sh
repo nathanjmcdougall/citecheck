@@ -16,7 +16,7 @@ pip-compile \
 pip-compile \
     --extra check \
     --extra test \
-    --output-file="requirements-ci.txt" \
+    --output-file="ci-requirements.txt" \
     --resolver=backtracking \
     --quiet \
     "pyproject.toml"
