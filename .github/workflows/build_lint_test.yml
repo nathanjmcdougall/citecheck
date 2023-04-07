@@ -53,4 +53,4 @@ jobs:
 
       - name: Check dev requirements
         run: |
-          pip install requirements.txt --dry-run
+          pip install -r requirements.txt --dry-run
