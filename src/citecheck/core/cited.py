@@ -7,7 +7,7 @@ from citecheck.core.types.citation import Citation
 T = TypeVar("T", bound=Citable)
 
 
-class _BaseCited:
+class _CitedMixin:
     def __new__(cls, value: Citable, _citation: Citation | None = None):
         self = super().__new__(cls, value)
         self._citation = _citation
@@ -24,7 +24,7 @@ class Cited(Generic[T]):
     """A type for objects cited with a citation."""
 
     def __class_getitem__(cls, item: type[T]) -> type[T]:
-        class _Cited(_BaseCited, item):
+        class _Cited(_CitedMixin, item):
             pass
 
         return _Cited
