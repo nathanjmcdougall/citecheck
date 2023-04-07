@@ -46,7 +46,7 @@ coverage[toml]==7.2.2
     # via
     #   citecheck (pyproject.toml)
     #   pytest-cov
-debugpy==1.6.6
+debugpy==1.6.7
     # via ipykernel
 decorator==5.1.1
     # via ipython
