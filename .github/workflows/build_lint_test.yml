@@ -39,3 +39,17 @@ jobs:
       - name: Test with pytest
         run: |
           pytest -v --cov --junitxml=test-reports/report.xml --cov-config=pyproject.toml
+
+  check-dev-reqs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          python --version
+          pip install --upgrade pip
+
+      - name: Check dev requirements
+        run: |
+          pip install -r dev-requirements.txt
