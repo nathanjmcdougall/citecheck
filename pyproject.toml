@@ -98,6 +98,7 @@ disable = [
   "line-too-long",              # Already checked by Ruff
   "missing-function-docstring", # We don't require docstrings for tests
   "too-few-public-methods",     # We often have small classes for this package for abstractions
+  "useless-object-inheritance", # For mypy explicit inheritance from object is useful
 ]
 ignore-paths = ["^.venv/.*$", "src/.*/_version.py$"]
 

@@ -1,4 +1,5 @@
 """Citation class."""
-from typing import Any, NewType
+from typing import NewType, TypeAlias
 
-Citation = NewType("Citation", Any)
+CitationBase: TypeAlias = object
+Citation = NewType("Citation", CitationBase)

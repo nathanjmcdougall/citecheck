@@ -21,8 +21,10 @@ class TestCited:
         assert citable + 2 == 7
 
     def test_bad_class(self):
-        assert Cited[int](5.362, _citation="math") == 5
-        assert Cited[str](5.362, _citation="math") == "5.362"
+        with pytest.raises(ValueError):
+            assert Cited[int](5.362, _citation="math") == 5
+        with pytest.raises(ValueError):
+            assert Cited[str](5.362, _citation="math") == "5.362"
         with pytest.raises(ValueError):
             Cited[int]("5.362", _citation="math")
 
