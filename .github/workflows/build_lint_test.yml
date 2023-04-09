@@ -39,7 +39,7 @@ jobs:
       - name: Test with pytest
         run: |
           pytest -v --cov --junitxml=test-reports/report.xml --cov-config=pyproject.toml
-          
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
 
