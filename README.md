@@ -1,4 +1,9 @@
-# citecheck
+<div align="center">
+  <img src="doc/source/_static/logo/full_dark.svg#gh-dark-mode-only"><br>
+  <img src="doc/source/_static/logo/full_light.svg#gh-light-mode-only"><br>
+</div>
+
+# citecheck: like typechecks, but for citations 📖⛓️
 
 <!-- badges: start -->
 ![Python Version](https://img.shields.io/badge/python-3.10.8-green)
@@ -10,9 +15,11 @@
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/nathanjmcdougall/citecheck/main.svg)](https://results.pre-commit.ci/latest/github/nathanjmcdougall/citecheck/main)
 <!-- badges: end -->
 
-Run-time protection of citation chains in Python
+Run-time protection of citation chains in Python.
 
 ## Getting Started with Development
+
+Use Linux, install [`pyenv`](https://github.com/pyenv/pyenv), and then run the setup script:
 
 ```bash
 source .\scripts\dev-setup.sh
