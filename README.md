@@ -13,6 +13,7 @@
 [![Linting: Pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/nathanjmcdougall/citecheck/main.svg)](https://results.pre-commit.ci/latest/github/nathanjmcdougall/citecheck/main)
+[![codecov](https://codecov.io/gh/nathanjmcdougall/citecheck/branch/develop/graph/badge.svg?token=OUHWT2NL8O)](https://codecov.io/gh/nathanjmcdougall/citecheck)
 <!-- badges: end -->
 
 Run-time protection of citation chains in Python.
