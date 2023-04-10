@@ -1,6 +1,5 @@
 """Test the CiteAs class."""
 from citecheck.core.citeas import CiteAs
-from citecheck.core.cited import _get_cited
 
 
 class TestCiteAs:
@@ -12,20 +11,18 @@ class TestCiteAs:
         _v = 5
         _x = CiteAs(_v, citation)
 
-        # pylint: disable=protected-access, no-member
+        # pylint: disable=protected-access
         assert _x._citation == citation
-        # pylint: enable=protected-access, no-member
+        # pylint: enable=protected-access
         assert _x == _v
-
-        assert CiteAs[1, 2] == _get_cited(1, 2)
 
     def test_class_get_item(self) -> None:
         """Test the __getitem__ method of the CiteAs class."""
         citation = "Einstein 2023"
-        _x = CiteAs[5, citation]
-        # pylint: disable=protected-access, no-member
+        _x = CiteAs[int, citation]
+        # pylint: disable=protected-access
         assert _x._citation == citation
-        # pylint: enable=protected-access, no-member
+        # pylint: enable=protected-access
 
     def test_is_type(self) -> None:
         """Test that CiteAs[..., ...] is a type."""

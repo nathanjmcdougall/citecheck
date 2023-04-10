@@ -1,17 +1,16 @@
 """A type for objects cited with a citation."""
-
 from functools import cache
-from typing import Protocol, TypeVar, runtime_checkable
+from typing import ClassVar, Protocol, TypeVar, runtime_checkable
 
 from citecheck.core.types.citable import _Citable
 from citecheck.core.types.citation import Citation
 
-_T = TypeVar("_T")
+_T = TypeVar("_T", bound="_CitedMixin")
 
 
 @runtime_checkable
 class _CitedMixin(Protocol):
-    _citation: Citation
+    _citation: ClassVar[Citation]
 
     def __new__(cls: type[_T], value: _Citable) -> _T:
         ...
@@ -22,14 +21,14 @@ _CitedMixinT = TypeVar("_CitedMixinT", bound=_CitedMixin)
 
 @cache
 def _get_cited_mixin(citation: Citation) -> _CitedMixin:
+    _S = TypeVar("_S", bound="CitedMixin")
+
     class CitedMixin:
         """A Mixin class to add a fixed citation to another class"""
 
-        def __init__(self, value: _Citable) -> None:
-            _ = value
-            self._citation = citation
+        _citation: Citation = citation
 
-        def __new__(cls: type[_T], value: _Citable) -> _T:
+        def __new__(cls: type[_S], value: _Citable) -> _S:
             _super: _Citable = super()
 
             # Clumsy syntax because of a bug in pylint:

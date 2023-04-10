@@ -12,12 +12,12 @@ class _CiteAsMeta(type):
     ) -> _CitedT[_CitedMixin, _CitableT]:
         return _get_cited(value, citation)
 
-
-class CiteAs(metaclass=_CiteAsMeta):
-    """Checking a citation of a Citable object, or turning it into one"""
-
-    def __class_getitem__(
+    def __getitem__(
         cls, item: tuple[type[_CitableT], _CitationT]
     ) -> type[_CitedT[_CitedMixin, _CitableT]]:
         citable_type, citation = item
         return _get_cited_class(citable_type, citation)
+
+
+class CiteAs(metaclass=_CiteAsMeta):
+    """Checking a citation of a Citable object, or turning it into one"""
