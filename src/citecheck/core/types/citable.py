@@ -7,8 +7,11 @@ _T = TypeVar("_T")
 
 
 @runtime_checkable
-class Citable(Protocol):
+class _Citable(Protocol):
     """A class for any arbitary object being cited"""
 
     def __new__(cls: type[_T], *args: Any, **kwargs: Any) -> _T:
         ...
+
+
+_CitableT = TypeVar("_CitableT", bound=_Citable)

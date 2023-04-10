@@ -1,71 +1,38 @@
-"""A type for objects cited with a citation."""
-from __future__ import annotations
-
+"""A dynamically-created type for objects cited with a citation."""
 from functools import cache
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic
 
-from citecheck.core.types.citable import Citable
-from citecheck.core.types.citation import Citation, CitationBase
-
-
-class CitedMixin:
-    """A Mixin class to add citations to another class"""
-
-    _citation: Citation
-
-    def __new__(cls, value: Citable, _citation: Citation) -> CitedMixin:
-        _super: Citable = super()
-        # Clumsy syntax because of a bug in pylint:
-        # https://github.com/pylint-dev/pylint/issues/8554
-        if isinstance(_super, Citable):
-            pass
-        else:
-            raise TypeError(f"""{_super} must follow the Citable protocol""")
-
-        self = _super.__new__(cls, value)
-        if self != value:
-            raise ValueError(
-                f"""{_super}.__new__({cls}, {value}) must return {value}"""
-            )
-
-        self._citation = _citation
-        return self
-
-    def __repr__(self) -> str:
-        return f"{super().__repr__()} (cited as {self._citation})"
-
-    def __hash__(self) -> int:
-        return hash((super().__hash__(), self._citation))
+from citecheck.core.citedmixin import _CitedMixin, _CitedMixinT, _get_cited_mixin
+from citecheck.core.types.citable import _Citable, _CitableT
+from citecheck.core.types.citation import Citation
 
 
-_CitableT = TypeVar("_CitableT", bound=Citable)
-_CitedMixinT = TypeVar("_CitedMixinT", bound=CitedMixin)
-
-
-class _CitedT(Generic[_CitedMixinT, _CitableT], CitedMixin, CitationBase):
+class _CitedT(_CitedMixin, _Citable, Generic[_CitedMixinT, _CitableT]):
     pass
 
 
-class Cited:
-    """A type for objects cited with a citation."""
+@cache
+def _get_cited_class(
+    citable_type: type[_CitableT],
+    citation: Citation,
+) -> type[_CitedT[_CitedMixin, _CitableT]]:
+    # There seems to be a bug in mypy:
+    # https://github.com/python/mypy/issues/14458
+    # For now, we need to use Any with --allow-subclassing-any.
+    cited_mixin: Any = _get_cited_mixin(citation)
+    _citable_type: Any = citable_type
 
-    def __class_getitem__(
-        cls,
-        item: type[_CitableT],
-    ) -> type[_CitedT[CitedMixin, _CitableT]]:
-        return cls._get_cited_class(citable_type=item)
+    if not isinstance(citable_type, type):
+        raise TypeError(f"{citable_type} must be a type")
 
-    @staticmethod
-    @cache
-    def _get_cited_class(
-        citable_type: type[_CitableT],
-    ) -> type[_CitedT[CitedMixin, _CitableT]]:
-        # There seems to be a bug in mypy:
-        # https://github.com/python/mypy/issues/14458
-        # For now, we need to use Any with --allow-subclassing-any.
-        _citable_type: Any = citable_type
+    # I want _Cited to have metaclass=_CitedMeta, but mypy has a bug:
+    # https://github.com/python/mypy/issues/15027
+    # So we use _ProtocolMeta instead.
+    class _Cited(cited_mixin, _citable_type, metaclass=type):
+        def __repr__(self) -> str:
+            return f"{super().__repr__()} (cited as {self._citation})"
 
-        class _Cited(CitedMixin, _citable_type):
-            pass
+        def __hash__(self) -> int:
+            return hash((super().__hash__(), self._citation))
 
-        return _Cited
+    return _Cited
