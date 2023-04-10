@@ -29,11 +29,19 @@ class TestCiteAs:
         # pylint: enable=protected-access, no-member
 
     @pytest.mark.skip(reason="Not implemented yet")
+    def test_is_type(self) -> None:
+        """Test that CiteAs[..., ...] is a type."""
+        assert isinstance(CiteAs[5, "example"], type)
+
+    @pytest.mark.skip(reason="Not implemented yet")
     def test_compatibility_between_new_and_getitem(self) -> None:
         value = 5
         citation = "citation"
 
+        # pylint: disable=isinstance-second-argument-not-valid-type
+        # We should re-enable this check once test_is_type passes
         assert isinstance(CiteAs(value, citation), CiteAs[type(value), citation])
+        # pylint: enable=isinstance-second-argument-not-valid-type
 
     @pytest.mark.skip(reason="Not implemented yet")
     def test_subtype(self) -> None:
