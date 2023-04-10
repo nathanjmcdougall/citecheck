@@ -1,9 +1,9 @@
 """Test the check_citations function."""
 import pytest
 
-from citecheck.core.check_citations import check_citations
 from citecheck.core.citeas import CiteAs
 from citecheck.core.errors import CitationError
+from citecheck.decorate.check_citations import check_citations
 
 
 class TestCheckCitations:
