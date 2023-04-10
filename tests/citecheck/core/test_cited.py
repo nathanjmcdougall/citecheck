@@ -41,3 +41,7 @@ class TestCited:
             return Cited[int](value, _citation="math")
 
         assert my_func(5) == 5
+
+    def test_eqaulity(self):
+        base_type = int
+        assert Cited[base_type] == Cited[base_type]
