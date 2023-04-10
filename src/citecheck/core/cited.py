@@ -11,9 +11,9 @@ from citecheck.core.types.citation import Citation, CitationBase
 class CitedMixin:
     """A Mixin class to add citations to another class"""
 
-    _citation: Citation | None
+    _citation: Citation
 
-    def __new__(cls, value: Citable, _citation: Citation | None = None) -> CitedMixin:
+    def __new__(cls, value: Citable, _citation: Citation) -> CitedMixin:
         _super: Citable = super()
         # Clumsy syntax because of a bug in pylint:
         # https://github.com/pylint-dev/pylint/issues/8554
