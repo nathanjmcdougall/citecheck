@@ -1,7 +1,6 @@
 """Test the CiteAs class."""
-import pytest
-
-from citecheck.core.citeas import CiteAs, _BaseCiteAs
+from citecheck.core.citeas import CiteAs
+from citecheck.core.cited import _get_cited
 
 
 class TestCiteAs:
@@ -18,7 +17,7 @@ class TestCiteAs:
         # pylint: enable=protected-access, no-member
         assert _x == _v
 
-        assert CiteAs[1, 2] == _BaseCiteAs(1, 2)
+        assert CiteAs[1, 2] == _get_cited(1, 2)
 
     def test_class_get_item(self) -> None:
         """Test the __getitem__ method of the CiteAs class."""
@@ -28,24 +27,26 @@ class TestCiteAs:
         assert _x._citation == citation
         # pylint: enable=protected-access, no-member
 
-    @pytest.mark.skip(reason="Not implemented yet")
     def test_is_type(self) -> None:
         """Test that CiteAs[..., ...] is a type."""
-        assert isinstance(CiteAs[5, "example"], type)
+        assert isinstance(CiteAs[int, "example"], type)
 
-    @pytest.mark.skip(reason="Not implemented yet")
     def test_compatibility_between_new_and_getitem(self) -> None:
         value = 5
-        citation = "citation"
-
-        # pylint: disable=isinstance-second-argument-not-valid-type
-        # We should re-enable this check once test_is_type passes
+        citation = "example"
+        assert isinstance(CiteAs(value, citation), type(CiteAs(value, citation)))
         assert isinstance(CiteAs(value, citation), CiteAs[type(value), citation])
-        # pylint: enable=isinstance-second-argument-not-valid-type
 
-    @pytest.mark.skip(reason="Not implemented yet")
     def test_subtype(self) -> None:
         """Test that CiteAs is a subtype of the base type."""
-        base_type = int
+        value = 5
+        base_type = type(value)
 
-        assert isinstance(CiteAs[base_type, "example"], base_type)
+        assert issubclass(CiteAs[base_type, "example"], base_type)
+
+    def test_isinstance_of_base(self) -> None:
+        """Test that CiteAs is an instance of the base type."""
+        value = 5
+        base_type = type(value)
+
+        assert isinstance(CiteAs(value, "example"), base_type)
