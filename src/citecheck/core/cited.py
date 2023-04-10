@@ -36,11 +36,3 @@ def _get_cited_class(
             return hash((super().__hash__(), self._citation))
 
     return _Cited
-
-
-def _get_cited(
-    value: _CitableT,
-    citation: Citation,
-) -> _CitedT[_CitedMixin, _CitableT]:
-    _cited_class = _get_cited_class(citable_type=type(value), citation=citation)
-    return _cited_class(value)

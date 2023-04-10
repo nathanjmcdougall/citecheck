@@ -20,13 +20,13 @@ _CitedMixinT = TypeVar("_CitedMixinT", bound=_CitedMixin)
 
 
 @cache
-def _get_cited_mixin(citation: Citation) -> _CitedMixin:
+def _get_cited_mixin(citation: Citation) -> type[_CitedMixin]:
     _S = TypeVar("_S", bound="CitedMixin")
 
     class CitedMixin:
         """A Mixin class to add a fixed citation to another class"""
 
-        _citation: Citation = citation
+        _citation: ClassVar[Citation] = citation
 
         def __new__(cls: type[_S], value: _Citable) -> _S:
             _super: _Citable = super()

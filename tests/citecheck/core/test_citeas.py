@@ -32,6 +32,11 @@ class TestCiteAs:
         value = 5
         citation = "example"
         assert isinstance(CiteAs(value, citation), type(CiteAs(value, citation)))
+        # pylint: disable=protected-access
+        assert (
+            CiteAs(value, citation)._citation == CiteAs[type(value), citation]._citation
+        )
+        # pylint: enable=protected-access
         assert isinstance(CiteAs(value, citation), CiteAs[type(value), citation])
 
     def test_subtype(self) -> None:
