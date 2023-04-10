@@ -1,6 +1,7 @@
 """A type for objects cited with a citation."""
 from __future__ import annotations
 
+from functools import cache
 from typing import Any, Generic, TypeVar
 
 from citecheck.core.types.citable import Citable
@@ -10,9 +11,9 @@ from citecheck.core.types.citation import Citation, CitationBase
 class CitedMixin:
     """A Mixin class to add citations to another class"""
 
-    _citation: Citation | None
+    _citation: Citation
 
-    def __new__(cls, value: Citable, _citation: Citation | None = None) -> CitedMixin:
+    def __new__(cls, value: Citable, _citation: Citation) -> CitedMixin:
         _super: Citable = super()
         # Clumsy syntax because of a bug in pylint:
         # https://github.com/pylint-dev/pylint/issues/8554
@@ -52,12 +53,19 @@ class Cited:
         cls,
         item: type[_CitableT],
     ) -> type[_CitedT[CitedMixin, _CitableT]]:
+        return cls._get_cited_class(citable_type=item)
+
+    @staticmethod
+    @cache
+    def _get_cited_class(
+        citable_type: type[_CitableT],
+    ) -> type[_CitedT[CitedMixin, _CitableT]]:
         # There seems to be a bug in mypy:
         # https://github.com/python/mypy/issues/14458
         # For now, we need to use Any with --allow-subclassing-any.
-        citable_type: Any = item
+        _citable_type: Any = citable_type
 
-        class _Cited(CitedMixin, citable_type):
+        class _Cited(CitedMixin, _citable_type):
             pass
 
         return _Cited
