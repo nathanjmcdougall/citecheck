@@ -57,6 +57,7 @@ universal = true
 python_version = "3.11"
 allow_subclassing_any = true
 strict = true
+exclude = ['tests/', 'doc/']
 
 [tool.towncrier]
 directory = "doc/source/whatsnew"
