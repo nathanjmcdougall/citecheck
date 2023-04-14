@@ -6,5 +6,5 @@ source .venv/bin/activate &&
 python -m ensurepip &&
 python -m pip install --upgrade pip &&
 pip install pip-tools &&
-pip-sync requirements.txt &&
+pip-sync requirements/requirements.txt &&
 pre-commit install

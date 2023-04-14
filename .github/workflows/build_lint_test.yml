@@ -24,7 +24,7 @@ jobs:
         run: |
           python --version
           pip install --upgrade pip
-          pip install -r ci-requirements.txt
+          pip install -r requirements/ci-requirements.txt
 
       - name: Build
         run: |
@@ -59,4 +59,4 @@ jobs:
 
       - name: Check dev requirements
         run: |
-          pip install -r requirements.txt --dry-run
+          pip install -r requirements/requirements.txt --dry-run
