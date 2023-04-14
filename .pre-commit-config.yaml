@@ -54,6 +54,11 @@ repos:
       - id: pylint
         args: ["--disable", "fixme"]
 
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.2.0'
+    hooks:
+    -   id: mypy
+
   - repo: local
     hooks:
       - id: setuptools_scm
