@@ -5,7 +5,7 @@ from typing import Any, Callable
 from citecheck.core.citedmixin import _CitedMixin
 from citecheck.core.errors import CitationError, CitationWarning
 from citecheck.core.types.citable import _Citable
-from citecheck.core.types.citation import _CitationT
+from citecheck.core.types.citation import Citation, _CitationT
 
 
 def _eq_compare(citation1: _CitationT, citation2: _CitationT) -> bool:
@@ -13,8 +13,8 @@ def _eq_compare(citation1: _CitationT, citation2: _CitationT) -> bool:
 
 
 def _get_compare_func(
-    compare_func: Callable[[_CitationT, _CitationT], bool] | None
-) -> Callable[[_CitationT, _CitationT], bool]:
+    compare_func: Callable[[Citation, Citation], bool] | None
+) -> Callable[[Citation, Citation], bool]:
     if compare_func is None:
         return _eq_compare
     return compare_func
@@ -22,11 +22,11 @@ def _get_compare_func(
 
 def check_citations(
     warn: bool = False,
-    compare_func: Callable[[_CitationT, _CitationT], bool] | None = None,
-):
+    compare_func: Callable[[Citation, Citation], bool] | None = None,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """A decorator to check citations of Cited objects in function annotations."""
 
-    compare_func = _get_compare_func(compare_func)
+    _compare_func = _get_compare_func(compare_func)
 
     raiser = CitationWarning if warn else CitationError
 
@@ -54,7 +54,7 @@ def check_citations(
                             # Check if the annotation matches the citation of the
                             # argument
                             # pylint: disable=protected-access
-                            if not compare_func(ann._citation, arg_value._citation):
+                            if not _compare_func(ann._citation, arg_value._citation):
                                 raise raiser(
                                     f"Function {func.__name__} was called with an "
                                     f"argument {arg_name} which has a "

@@ -1,7 +1,4 @@
-# This workflow will install Python dependencies, pytest and lint with a variety of Python versions
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Build, Lint and Test
+name: Build, Analyze and Test
 
 on:
   push:
@@ -35,6 +32,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Check with mypy
+        run: |
+          mypy .
 
       - name: Test with pytest
         run: |
