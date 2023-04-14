@@ -25,9 +25,6 @@ def _get_cited_class(
     if not isinstance(citable_type, type):
         raise TypeError(f"{citable_type} must be a type")
 
-    # I want _Cited to have metaclass=_CitedMeta, but mypy has a bug:
-    # https://github.com/python/mypy/issues/15027
-    # So we use _ProtocolMeta instead.
     class _Cited(cited_mixin, _citable_type, metaclass=type):
         def __repr__(self) -> str:
             return f"{super().__repr__()} (cited as {self._citation})"
