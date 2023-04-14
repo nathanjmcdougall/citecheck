@@ -102,8 +102,12 @@ matplotlib-inline==0.1.6
     #   ipython
 mccabe==0.7.0
     # via pylint
+mypy==1.2.0
+    # via citecheck (pyproject.toml)
 mypy-extensions==1.0.0
-    # via black
+    # via
+    #   black
+    #   mypy
 nest-asyncio==1.5.6
     # via ipykernel
 nodeenv==1.7.0
@@ -221,6 +225,7 @@ tomli==2.0.1
     #   build
     #   citecheck (pyproject.toml)
     #   coverage
+    #   mypy
     #   pylint
     #   pyproject-hooks
     #   pytest
@@ -245,6 +250,7 @@ traitlets==5.9.0
 typing-extensions==4.5.0
     # via
     #   astroid
+    #   mypy
     #   pydata-sphinx-theme
     #   setuptools-scm
 urllib3==1.26.15
