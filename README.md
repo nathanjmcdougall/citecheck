@@ -7,6 +7,7 @@
 
 <!-- badges: start -->
 [![License](https://img.shields.io/github/license/nathanjmcdougall/citecheck)](https://github.com/nathanjmcdougall/citecheck/blob/main/LICENSE.txt)
+[![PyPI version](https://badge.fury.io/py/citecheck.svg)](https://badge.fury.io/py/citecheck)
 [![Documentation Status](https://readthedocs.org/projects/citecheck/badge/?version=latest)](https://citecheck.readthedocs.io/en/latest/?badge=latest)
 [![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
 [![Linting: Ruff](https://img.shields.io/badge/linting-ruff-yellowgreen)](https://github.com/charliermarsh/ruff)
@@ -14,7 +15,9 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/nathanjmcdougall/citecheck/main.svg)](https://results.pre-commit.ci/latest/github/nathanjmcdougall/citecheck/main)
 [![codecov](https://codecov.io/gh/nathanjmcdougall/citecheck/branch/develop/graph/badge.svg?token=OUHWT2NL8O)](https://codecov.io/gh/nathanjmcdougall/citecheck)
+[![Downloads](https://static.pepy.tech/badge/citecheck)](https://pepy.tech/project/citecheck)
 <!-- badges: end -->
+
 ## Quick example
 Consider this example (all authors and quantities are fictitious):
 
