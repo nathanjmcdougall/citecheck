@@ -1,0 +1,2 @@
+The requirements.txt files (for local development and CI) have been put into a
+subdirectory to reduce clutter.

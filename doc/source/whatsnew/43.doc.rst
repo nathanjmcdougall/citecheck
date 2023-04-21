@@ -1,0 +1,2 @@
+Badges in the README have been added and re-ordered. Also, one for the Python version
+used in development has been removed.

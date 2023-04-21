@@ -115,6 +115,10 @@ showcontent = true
 directory = "test"
 name = "Improved Test Suite"
 showcontent = true
+[[tool.towncrier.type]]
+directory = "config"
+name = "Development Configuration Changes"
+showcontent = true
 
 [tool.ruff]
 src = ["src"]

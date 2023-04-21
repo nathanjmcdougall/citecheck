@@ -1,0 +1,3 @@
+The decorator ``check_citations`` has new behaviour to use ``typing.Annotated``
+together with a instance of the container class ``Cite``, rather than ``CiteAs``
+directly.
