@@ -56,6 +56,7 @@ python_version = "3.11"
 allow_subclassing_any = true
 strict = true
 exclude = ['tests/', 'doc/']
+mypy_path = ["src"]
 
 [tool.towncrier]
 directory = "doc/source/whatsnew"
@@ -89,6 +90,7 @@ name = "Improved Test Suite"
 showcontent = true
 
 [tool.ruff]
+src = ["src"]
 ignore = [
   "F403", # We often use * imports in __init__.py files, and other uses will be checked by pylint
 ]

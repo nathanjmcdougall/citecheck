@@ -30,14 +30,14 @@ The goal for citecheck is that you could implement this as follows:
 def calc_vt_doe2021(
   qt: float,
   t: float
-) -> CiteAs[float, "doe2021"]:
+) -> Annotated[float, Cite("doe2021")]:
     ...
 
 @enforcecite
 def calc_rm_bloggs2023(
   vt: CiteAs[float, "doe2021"],
   rho: float
-) -> CiteAs[float, "bloggs2023"]:
+) -> Annotated[float, Cite("bloggs2023")]:
     ...
 ```
 
