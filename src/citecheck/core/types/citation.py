@@ -1,4 +1,6 @@
 """Citation class."""
-from typing import Any, NewType
+from typing import NewType, TypeAlias, TypeVar
 
-Citation = NewType("Citation", Any)
+_Citation: TypeAlias = object
+Citation = NewType("Citation", _Citation)
+_CitationT = TypeVar("_CitationT", bound=Citation)

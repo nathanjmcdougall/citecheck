@@ -1,30 +1,35 @@
-"""A type for objects cited with a citation."""
-from typing import Generic, TypeVar
+"""A dynamically-created type for objects cited with a citation."""
+from functools import cache
+from typing import Any, Generic
 
-from citecheck.core.types.citand import Citand
+from citecheck.core.citedmixin import _CitedMixin, _CitedMixinT, _get_cited_mixin
+from citecheck.core.types.citable import _Citable, _CitableT
 from citecheck.core.types.citation import Citation
 
-T = TypeVar("T", bound=Citand)
+
+class _CitedT(_CitedMixin, _Citable, Generic[_CitedMixinT, _CitableT]):
+    pass
 
 
-class _BaseCited:
-    def __new__(cls, value: Citand, _citation: Citation | None = None):
-        self = super().__new__(cls, value)
-        self._citation = _citation
-        return self
+@cache
+def _get_cited_class(
+    citable_type: type[_CitableT],
+    citation: Citation,
+) -> type[_CitedT[_CitedMixin, _CitableT]]:
+    # There seems to be a bug in mypy:
+    # https://github.com/python/mypy/issues/14458
+    # For now, we need to use Any with --allow-subclassing-any.
+    cited_mixin: Any = _get_cited_mixin(citation)
+    _citable_type: Any = citable_type
 
-    def __repr__(self):
-        return f"{super().__repr__()} (cited as {self._citation})"
+    if not isinstance(citable_type, type):
+        raise TypeError(f"{citable_type} must be a type")
 
-    def __hash__(self):
-        return hash((super().__hash__(), self._citation))
+    class _Cited(cited_mixin, _citable_type, metaclass=type):
+        def __repr__(self) -> str:
+            return f"{super().__repr__()} (cited as {self._citation})"
 
+        def __hash__(self) -> int:
+            return hash((super().__hash__(), self._citation))
 
-class Cited(Generic[T]):
-    """A type for objects cited with a citation."""
-
-    def __class_getitem__(cls, item: type[T]) -> type[T]:
-        class _Cited(_BaseCited, item):
-            pass
-
-        return _Cited
+    return _Cited

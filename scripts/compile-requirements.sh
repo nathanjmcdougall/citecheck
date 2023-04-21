@@ -7,7 +7,7 @@ pip-compile \
     --extra notebook \
     --extra profile \
     --extra viz \
-    --output-file="requirements.txt" \
+    --output-file="requirements/requirements.txt" \
     --resolver=backtracking \
     --quiet \
     "pyproject.toml"
@@ -16,7 +16,7 @@ pip-compile \
 pip-compile \
     --extra check \
     --extra test \
-    --output-file="requirements-ci.txt" \
+    --output-file="requirements/ci-requirements.txt" \
     --resolver=backtracking \
     --quiet \
     "pyproject.toml"

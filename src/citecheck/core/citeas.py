@@ -1,26 +1,25 @@
-"""Checking a citation of a Citand object, or turning it into one"""
-from dataclasses import dataclass
-from typing import Generic, TypeVar
+"""Checking a citation of a citable object, or turning it into one"""
 
-from citecheck.core.cited import Cited
-from citecheck.core.types.citand import Citand
-from citecheck.core.types.citation import Citation
-
-T = TypeVar("T", bound=Citand)
+from citecheck.core.cited import _CitedT, _get_cited_class
+from citecheck.core.citedmixin import _CitedMixin
+from citecheck.core.types.citable import _CitableT
+from citecheck.core.types.citation import Citation, _CitationT
 
 
-@dataclass
-class _BaseCiteAs:
-    _value_cls: type[Citand]
-    _citation: Citation
+class _CiteAsMeta(type):
+    def __call__(
+        cls, value: _CitableT, citation: Citation
+    ) -> _CitedT[_CitedMixin, _CitableT]:
+        citable_type = type(value)
+        _cited_class = _get_cited_class(citable_type, citation)
+        return _cited_class(value)
+
+    def __getitem__(
+        cls, item: tuple[type[_CitableT], _CitationT]
+    ) -> type[_CitedT[_CitedMixin, _CitableT]]:
+        citable_type, citation = item
+        return _get_cited_class(citable_type, citation)
 
 
-class CiteAs(Generic[T]):
-    """Checking a citation of a Citand object, or turning it into one"""
-
-    def __class_getitem__(cls, item: tuple[type[Citand], Citation]):
-        value_cls, citation = item
-        return _BaseCiteAs(_value_cls=value_cls, _citation=citation)
-
-    def __new__(cls, value: T, citation: Citation):
-        return Cited[type(value)](value, _citation=citation)
+class CiteAs(metaclass=_CiteAsMeta):
+    """Checking a citation of a citable object, or turning it into one"""

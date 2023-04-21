@@ -1,0 +1,4 @@
+# See pyproject.toml
+
+# This file is included to help dependabot determine we are using pip-tools to create requirements files.
+# In reality, the dependencies for this project are in pyproject.toml
