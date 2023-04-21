@@ -1,0 +1,5 @@
+Dependabot has been configured to work correctly when using pip-compile together with
+pyproject.toml. To achieve this, the CI requirements.txt file was renamed from
+requirements-ci.txt to ci-requirements.txt, to follow dependabot's expected naming
+pattern for requiremnts files. An empty requirements.in file also needed to be added
+to signal to dependabot that pip-compile is being used.

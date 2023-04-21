@@ -1,0 +1,3 @@
+Mypy has been added to the project for static type checking, in strict mode.
+Accordingly, comprehensive type annotations have been added to the codebase, excluding
+the test suite.

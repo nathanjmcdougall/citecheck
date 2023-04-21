@@ -1,0 +1,2 @@
+A decorator ``check_citations`` has been added, which together with a class ``Cite`` and
+``typing.Annotated`` automate's the checking of citation arguments to a function.
