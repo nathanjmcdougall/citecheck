@@ -80,7 +80,6 @@ license-files = ["LICENSE.txt"]
 universal = true
 
 [tool.mypy]
-python_version = "3.11"
 allow_subclassing_any = true
 strict = true
 exclude = ['tests/', 'doc/']
