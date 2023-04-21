@@ -1,2 +1,0 @@
-pyproject.toml has been configured with pakcage metadata for in PyPI. This includes
-classifiers, project URLs, and the SPDX license identifier.
