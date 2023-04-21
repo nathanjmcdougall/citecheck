@@ -1,2 +1,0 @@
-``Citand`` has been renamed to ``Citable``. The original name was a nod to the words
-multiplicand and summand.
