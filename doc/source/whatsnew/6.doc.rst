@@ -1,0 +1,1 @@
+More detailed docstrings have been added to the core classes.
