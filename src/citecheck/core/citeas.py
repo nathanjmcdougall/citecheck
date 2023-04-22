@@ -1,4 +1,4 @@
-"""Checking a citation of a citable object, or turning it into one"""
+"""A class for adding citation attributes to citable objects."""
 
 from citecheck.core.cited import _CitedT, _get_cited_class
 from citecheck.core.citedmixin import _CitedMixin
@@ -22,4 +22,7 @@ class _CiteAsMeta(type):
 
 
 class CiteAs(metaclass=_CiteAsMeta):
-    """Checking a citation of a citable object, or turning it into one"""
+    """A class for adding citation attributes to citable objects.
+
+    Usage is `CiteAs(value, citation)`.
+    """
