@@ -1,0 +1,2 @@
+An ``uncite`` function has been added to remove citations from cited objects, restoring
+them to their original type.
