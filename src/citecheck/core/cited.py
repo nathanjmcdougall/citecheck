@@ -1,4 +1,5 @@
 """A dynamically-created type for objects cited with a citation."""
+from abc import abstractmethod
 from functools import cache
 from typing import Any, Generic
 
@@ -8,7 +9,9 @@ from citecheck.core.types.citation import Citation
 
 
 class _CitedT(_CitedMixin, _Citable, Generic[_CitedMixinT, _CitableT]):
-    pass
+    @abstractmethod
+    def _uncited_type(self) -> type[_CitableT]:
+        ...
 
 
 @cache
@@ -26,6 +29,9 @@ def _get_cited_class(
         raise TypeError(f"{citable_type} must be a type")
 
     class _Cited(cited_mixin, _citable_type, metaclass=type):
+        def _uncited_type(self) -> type[_CitableT]:
+            return citable_type
+
         def __repr__(self) -> str:
             return f"{super().__repr__()} (cited as {self._citation})"
 
