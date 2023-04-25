@@ -61,10 +61,10 @@ repos:
       - id: pylint
         args: ["--disable", "fixme"]
 
-  # - repo: https://github.com/igorshubovych/markdownlint-cli
-  #   rev: v0.33.0
-  #   hooks:
-  #     - id: markdownlint
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.33.0
+    hooks:
+      - id: markdownlint
 
   - repo: local
     hooks:

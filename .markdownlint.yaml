@@ -1,0 +1,8 @@
+# MD033/no-inline-html - Inline HTML
+MD033:
+  # to allow centre-aligned images
+  allowed_elements: ["h1", "br", "img"]
+
+MD013:
+  # Number of characters
+  line_length: 88 # Consistent with other tools (see pyproject.toml)
