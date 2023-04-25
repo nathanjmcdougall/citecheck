@@ -19,12 +19,14 @@
 <!-- badges: end -->
 
 ## Quick example
+
 Consider this example (all authors and quantities are fictitious):
 
 - Doe (2021) published a method for estimating $V_t$ as a function of $q_p$ and $t$.
 - Bloggs (2023) published a method for estimating $R_m$ as a function of $V_t$ and $\rho$, with the explicit requirement that $V_t$ be estimated using the method of Doe (2021) in particular.
 
 The goal for citecheck is that you could implement this as follows:
+
 ```Python
 @enforcecite
 def calc_vt_doe2021(
