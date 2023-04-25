@@ -66,6 +66,12 @@ repos:
     hooks:
       - id: markdownlint
 
+  # doc8 is a linter for RST
+  - repo: https://github.com/PyCQA/doc8
+    rev: v1.1.1
+    hooks:
+      - id: doc8
+
   - repo: local
     hooks:
       - id: setuptools_scm

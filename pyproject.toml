@@ -52,6 +52,7 @@ dev = [
   "black==23.3.0",
   "pylint==3.0.0a6",
   "ruff==0.0.262",
+  "doc8==1.1.1",
   # ^^^
 ]
 check = [
@@ -179,3 +180,6 @@ exclude_lines = [
   # Don't complain about abstract methods, they aren't run:
   "@(abc\\.)?abstractmethod",
 ]
+
+[tool.doc8]
+max-line-length = 88
