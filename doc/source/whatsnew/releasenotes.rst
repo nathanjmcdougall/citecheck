@@ -23,7 +23,7 @@ Features
 Improved Documentation
 ----------------------
 
-- pyproject.toml has been configured with pakcage metadata for in PyPI. This includes
+- pyproject.toml has been configured with package metadata for in PyPI. This includes
   classifiers, project URLs, and the SPDX license identifier. (#5)
 - Badges in the README have been added and re-ordered. Also, one for the Python version
   used in development has been removed. (#43)
