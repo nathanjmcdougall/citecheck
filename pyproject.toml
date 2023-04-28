@@ -122,6 +122,48 @@ showcontent = true
 
 [tool.ruff]
 src = ["src"]
+select = [
+  # "A",
+  # "ANN",
+  # "ARG",
+  # "B",
+  # "BLE",
+  # "C90",
+  # "COM",
+  # "D",
+  # "DTZ",
+  "E",
+  # "EM",
+  # "ERA",
+  # "EXE",
+  "F",
+  # "FBT",
+  # "G",
+  "I",
+  # "ICN",
+  # "INP",
+  # "ISC",
+  # "N",
+  # "PD",
+  # "PGH",
+  # "PIE",
+  # "PL",
+  # "PT",
+  # "PTH",
+  # "Q",
+  # "RET",
+  # "RUF",
+  # "S",
+  # "SIM",
+  # "T10",
+  # "T20",
+  # "TCH",
+  # "TID",
+  # "TRY",
+  # "UP",
+  # "W",
+  # "YTT",
+]
 ignore = [
   "F403", # We often use * imports in __init__.py files, and other uses will be checked by pylint
 ]
@@ -156,10 +198,6 @@ console_output_style = ['progress']
 [tool.pytest.ini_options]
 pythonpath = "src"
 testpaths = ["tests"]
-
-[tool.isort]
-profile = "black"
-src_paths = ["src", "tests"]
 
 [tool.coverage.report]
 ignore_errors = true

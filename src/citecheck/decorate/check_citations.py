@@ -1,6 +1,7 @@
 """A decorator to check citations of Cited objects in function annotations."""
 import inspect
-from typing import Annotated, Any, Callable, get_args, get_origin
+from collections.abc import Callable
+from typing import Annotated, Any, get_args, get_origin
 
 from citecheck.core.cite import Cite
 from citecheck.core.citedmixin import _CitedMixin
@@ -13,7 +14,7 @@ def _eq_compare(citation1: _CitationT, citation2: _CitationT) -> bool:
 
 
 def _get_compare_func(
-    compare_func: Callable[[Citation, Citation], bool] | None
+    compare_func: Callable[[Citation, Citation], bool] | None,
 ) -> Callable[[Citation, Citation], bool]:
     if compare_func is None:
         return _eq_compare
@@ -25,7 +26,6 @@ def check_citations(
     compare_func: Callable[[Citation, Citation], bool] | None = None,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """A decorator to check citations of Cited objects in function annotations."""
-
     _compare_func = _get_compare_func(compare_func)
 
     raiser = CitationWarning if warn else CitationError
@@ -74,7 +74,7 @@ def check_citations(
                                     f"an argument {arg_name} which has a "
                                     f"citation {citation} which "
                                     f"does not match any of the annotated citations "
-                                    f"{annotated_citations}"
+                                    f"{annotated_citations}",
                                 )
 
             # Call the function
