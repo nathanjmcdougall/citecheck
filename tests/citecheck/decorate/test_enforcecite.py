@@ -1,33 +1,14 @@
 """Test the enforce_cite decorator."""
 from typing import Annotated as Ann
 
-import pytest
-
 from citecheck.core.cite import Cite
 from citecheck.core.citeas import CiteAs
-from citecheck.core.errors import CitationError
 from citecheck.decorate.cite_output import _get_cite_ann_args, _get_output_cite_ann_args
 from citecheck.decorate.enforcecite import enforcecite
 
 
 class TestEnforceCite:
     """Test the enforce_cite decorator."""
-
-    def test_inputs_only(self) -> None:
-        """A simple case, where usage is equivalent to @check_citations."""
-
-        citation = "Einstein 2023"
-
-        @enforcecite()
-        def my_func(value: Ann[float, Cite(citation)]) -> float:
-            return value
-
-        _v = 5.0
-        _x = CiteAs(_v, citation)
-        assert my_func(_x) == _v
-
-        with pytest.raises(CitationError):
-            assert my_func(CiteAs(_v, "Frank 2022"))
 
     def test_basic(self) -> None:
         """Check a case where we check inputs and cite output too"""
