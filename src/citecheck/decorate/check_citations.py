@@ -1,5 +1,6 @@
 """A decorator to check citations of Cited objects in function annotations."""
 import inspect
+import warnings
 from collections.abc import Callable
 from functools import wraps
 from typing import Annotated, Any, get_args, get_origin
@@ -30,8 +31,6 @@ def check_citations(
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """A decorator to check citations of Cited objects in function annotations."""
     _compare_func = _get_compare_func(compare_func)
-
-    raiser = CitationWarning if warn else CitationError
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         # Get the function signature
@@ -64,13 +63,18 @@ def check_citations(
                         # Check if the citation matches
                         if not any_match:
                             annotated_citations = [arg.citation for arg in ann_args]
-                            raise raiser(
+                            msg = (
                                 f"Function {func.__name__} was called with "
                                 f"an argument {arg_name} which has a "
                                 f"citation {arg_value._citation} which "
                                 f"does not match any of the annotated citations "
-                                f"{annotated_citations}",
+                                f"{annotated_citations}"
                             )
+                            if warn:
+                                warnings.warn(msg, CitationWarning)
+                            else:
+                                raise CitationError(msg)
+
                         # pylint: enable=protected-access
 
             argslist = list(args)
