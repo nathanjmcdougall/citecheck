@@ -24,7 +24,7 @@ def _get_compare_func(
     return compare_func
 
 
-def check_citations(
+def citedinput(
     warn: bool = False,
     compare_func: Callable[[Citation, Citation], bool] | None = None,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
