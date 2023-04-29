@@ -8,17 +8,27 @@ from citecheck.core.citeas import CiteAs
 from citecheck.core.cited import _get_cited_class
 from citecheck.core.errors import CitationError
 from citecheck.decorate.check_citations import check_citations
+from citecheck.decorate.enforcecite import enforcecite
 
 
 class TestCheckCitations:
     """Test the check_citations decorator."""
 
-    def test_basic(self):
+    @pytest.mark.parametrize(
+        "decorator",
+        [
+            check_citations,
+            # when there are no output annotations then enforcecite is equivalent to
+            # check_citations
+            enforcecite,
+        ],
+    )
+    def test_basic(self, decorator):
         """Test the check_citations decorator."""
 
         citation = "Einstein 2023"
 
-        @check_citations()
+        @decorator()
         def my_func(value: Ann[float, Cite(citation)]) -> float:
             return value
 

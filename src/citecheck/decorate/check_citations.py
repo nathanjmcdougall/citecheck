@@ -1,6 +1,7 @@
 """A decorator to check citations of Cited objects in function annotations."""
 import inspect
 from collections.abc import Callable
+from functools import wraps
 from typing import Annotated, Any, get_args, get_origin
 
 from citecheck.core.cite import Cite
@@ -39,6 +40,7 @@ def check_citations(
         # Get the function annotations
         anns = func.__annotations__
 
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             # Iterate over the function arguments
             for arg_name, arg_value in sig.bind(*args, **kwargs).arguments.items():
