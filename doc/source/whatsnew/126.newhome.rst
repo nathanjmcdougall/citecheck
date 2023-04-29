@@ -1,1 +1,0 @@
-The ``check_citations`` decorator has been renamed to ``citedinput``.

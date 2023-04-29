@@ -1,2 +1,0 @@
-The ``check_citations`` (now named ``citedinput``) decorator now automatically uncites
-all inputs to the functions it decorates.

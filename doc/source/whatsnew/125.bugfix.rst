@@ -1,2 +1,0 @@
-The ``check_citations`` previously raised a warning as an error when ``warn=True``,
-rather than using ``warnings.warn``. This has been fixed.
