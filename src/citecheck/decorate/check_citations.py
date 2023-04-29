@@ -4,9 +4,11 @@ from collections.abc import Callable
 from typing import Annotated, Any, get_args, get_origin
 
 from citecheck.core.cite import Cite
+from citecheck.core.cited import _CitedProtocol
 from citecheck.core.citedmixin import _CitedMixin
 from citecheck.core.errors import CitationError, CitationWarning
 from citecheck.core.types.citation import Citation, _CitationT
+from citecheck.core.uncite import uncite
 
 
 def _eq_compare(citation1: _CitationT, citation2: _CitationT) -> bool:
@@ -38,47 +40,49 @@ def check_citations(
         anns = func.__annotations__
 
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            # Get the function arguments
-            bound_args = sig.bind(*args, **kwargs)
-
             # Iterate over the function arguments
-            for arg_name, arg_value in bound_args.arguments.items():
-                # Check if the argument is cited
-                if isinstance(arg_value, _CitedMixin):
-                    # Check if the argument is annotated
-                    if arg_name in anns:
-                        ann = anns[arg_name]
+            for arg_name, arg_value in sig.bind(*args, **kwargs).arguments.items():
+                # Check if the argument is cited and annotated
+                if isinstance(arg_value, _CitedMixin) and arg_name in anns:
+                    # Check if the annotation is typing.Annotated
+                    ann = anns[arg_name]
+                    if get_origin(ann) is Annotated:
+                        # Get the annotation arguments which are Cite type
+                        ann_args = [
+                            arg for arg in get_args(ann) if isinstance(arg, Cite)
+                        ]
 
-                        # Check if the annotation is typing.Annotated
-                        if get_origin(ann) is Annotated:
-                            # Get the annotation arguments which are Cite type
-                            ann_args = [
-                                arg for arg in get_args(ann) if isinstance(arg, Cite)
-                            ]
+                        # Iterate over the annotation arguments
+                        # pylint: disable=protected-access
+                        any_match = any(
+                            _compare_func(arg_value._citation, ann_arg.citation)
+                            for ann_arg in ann_args
+                        )
 
-                            # Iterate over the annotation arguments
-                            any_match = False
-                            for ann_arg in ann_args:
-                                # pylint: disable=protected-access
-                                citation = arg_value._citation
-                                # pylint: enable=protected-access
+                        # Check if the citation matches
+                        if not any_match:
+                            annotated_citations = [arg.citation for arg in ann_args]
+                            raise raiser(
+                                f"Function {func.__name__} was called with "
+                                f"an argument {arg_name} which has a "
+                                f"citation {arg_value._citation} which "
+                                f"does not match any of the annotated citations "
+                                f"{annotated_citations}",
+                            )
+                        # pylint: enable=protected-access
 
-                                match = _compare_func(citation, ann_arg.citation)
-                                any_match = any_match or match
+            argslist = list(args)
 
-                            # Check if the citation matches
-                            if not any_match:
-                                annotated_citations = [arg.citation for arg in ann_args]
-                                raise raiser(
-                                    f"Function {func.__name__} was called with "
-                                    f"an argument {arg_name} which has a "
-                                    f"citation {citation} which "
-                                    f"does not match any of the annotated citations "
-                                    f"{annotated_citations}",
-                                )
+            for idx, arg in enumerate(argslist):
+                if isinstance(arg, _CitedProtocol):
+                    argslist[idx] = uncite(arg)
+
+            for key, value in kwargs.items():
+                if isinstance(value, _CitedProtocol):
+                    kwargs[key] = uncite(value)
 
             # Call the function
-            return func(*args, **kwargs)
+            return func(*argslist, **kwargs)
 
         return wrapper
 

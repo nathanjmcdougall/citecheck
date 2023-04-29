@@ -5,6 +5,7 @@ import pytest
 
 from citecheck.core.cite import Cite
 from citecheck.core.citeas import CiteAs
+from citecheck.core.cited import _get_cited_class
 from citecheck.core.errors import CitationError
 from citecheck.decorate.check_citations import check_citations
 
@@ -21,7 +22,7 @@ class TestCheckCitations:
         def my_func(value: Ann[float, Cite(citation)]) -> float:
             return value
 
-        _v = 5
+        _v = 5.0
         _x = CiteAs(_v, citation)
         assert my_func(_x) == _v
 
@@ -37,7 +38,7 @@ class TestCheckCitations:
         def my_func(value: Ann[float, Cite(citation), Cite(citation)]) -> float:
             return value
 
-        _v = 5
+        _v = 5.0
         _x = CiteAs(_v, citation)
         assert my_func(_x) == _v
 
@@ -54,7 +55,7 @@ class TestCheckCitations:
         def my_func(value: Ann[float, Cite(citation1), Cite(citation2)]) -> float:
             return value
 
-        _v = 5
+        _v = 5.0
         _x = CiteAs(_v, citation1)
         assert my_func(_x) == _v
         _y = CiteAs(_v, citation2)
@@ -62,3 +63,29 @@ class TestCheckCitations:
 
         with pytest.raises(CitationError):
             assert my_func(CiteAs(_v, "Frank 2022"))
+
+    def test_uncited_within_decorated(self):
+        """Check that citations are automatically removed be the decorator
+
+        Once inputs are passed into the decorated functino body, they should be the
+        original, uncited value.
+        """
+
+        citation = "Einstein 2023"
+
+        @check_citations()
+        def my_func(
+            value: Ann[float, Cite(citation)],
+            other_value: Ann[int, Cite(citation)] = 1,
+        ) -> float:
+            assert isinstance(value, float)
+            assert not hasattr(value, "_citation")
+            assert not isinstance(value, _get_cited_class(float, citation))
+            assert isinstance(other_value, int)
+            assert not hasattr(other_value, "_citation")
+            assert not isinstance(other_value, _get_cited_class(int, citation))
+            return value
+
+        _v = 5.0
+        _x = CiteAs(_v, citation)
+        assert my_func(_x) == _v

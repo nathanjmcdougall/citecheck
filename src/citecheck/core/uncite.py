@@ -2,14 +2,13 @@
 
 from typing import TypeVar
 
-from citecheck.core.cited import _CitedT
-from citecheck.core.citedmixin import _CitedMixin
-from citecheck.core.types.citable import _CitableT
+from citecheck.core.cited import _CitedProtocol
+from citecheck.core.types.citable import _Citable
 
 _T = TypeVar("_T", bound=object)
 
 
-def uncite(value: _CitedT[_CitedMixin, _CitableT]) -> _CitableT:
+def uncite(value: _CitedProtocol) -> _Citable:
     """Remove the citation from a cited object.
 
     This function is the inverse of :class:`citecheck.core.citeas.CiteAs`.
