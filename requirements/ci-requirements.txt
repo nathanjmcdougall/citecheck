@@ -4,11 +4,9 @@
 #
 #    pip-compile --extra=check --extra=test --output-file=requirements/ci-requirements.txt --resolver=backtracking pyproject.toml
 #
-attrs==22.2.0
-    # via pytest
 cfgv==3.3.1
     # via pre-commit
-coverage[toml]==7.2.2
+coverage[toml]==7.2.4
     # via
     #   citecheck (pyproject.toml)
     #   pytest-cov
@@ -16,9 +14,9 @@ distlib==0.3.6
     # via virtualenv
 exceptiongroup==1.1.1
     # via pytest
-filelock==3.10.7
+filelock==3.12.0
     # via virtualenv
-identify==2.5.22
+identify==2.5.23
     # via pre-commit
 iniconfig==2.0.0
     # via pytest
@@ -28,15 +26,17 @@ mypy-extensions==1.0.0
     # via mypy
 nodeenv==1.7.0
     # via pre-commit
-packaging==23.0
+numpy==1.24.3
+    # via citecheck (pyproject.toml)
+packaging==23.1
     # via pytest
-platformdirs==3.2.0
+platformdirs==3.5.0
     # via virtualenv
 pluggy==1.0.0
     # via pytest
-pre-commit==3.2.1
+pre-commit==3.2.2
     # via citecheck (pyproject.toml)
-pytest==7.2.2
+pytest==7.3.1
     # via
     #   citecheck (pyproject.toml)
     #   pytest-cov
@@ -51,7 +51,7 @@ tomli==2.0.1
     #   pytest
 typing-extensions==4.5.0
     # via mypy
-virtualenv==20.21.0
+virtualenv==20.23.0
     # via pre-commit
 
 # The following packages are considered to be unsafe in a requirements file:

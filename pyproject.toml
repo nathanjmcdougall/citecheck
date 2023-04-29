@@ -58,7 +58,7 @@ check = [
   "pre-commit",
   "mypy==1.2.0", # Sync with the version in .pre-commit-config.yaml
 ]
-test = ["pytest", "coverage[toml]", "pytest-cov"]
+test = ["pytest", "coverage[toml]", "pytest-cov", "numpy"]
 notebook = ["ipykernel", "IPython"]
 
 [project.urls]
