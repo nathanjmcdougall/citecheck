@@ -1,7 +1,9 @@
 """Test the enforce_cite decorator."""
 from typing import Annotated as Ann
 
+import numpy as np
 import pytest
+from numpy.typing import ArrayLike, NDArray
 
 from citecheck.core.cite import Cite
 from citecheck.core.citeas import CiteAs
@@ -41,6 +43,25 @@ class TestEnforceCite:
             @citedreturn
             def my_func() -> float:
                 return 1.0
+
+    def test_numpy(self) -> None:
+        """Check an example where numpy arrays are used"""
+
+        citation = "Einstein 2023"
+
+        @enforcecite()
+        def my_func(
+            value: Ann[ArrayLike, Cite(citation)]
+        ) -> Ann[NDArray[np.float64], Cite(citation)]:
+            _ = value
+            return np.array([1.0, 2.0])
+
+        _v = np.array([1.0, 2.0])
+        _x = CiteAs(_v, citation)
+        assert np.all(my_func(_x) == _x)
+        # pylint: disable=protected-access,no-member
+        assert my_func(_x)._citation == citation
+        # pylint: enable=protected-access,no-member
 
 
 def test_get_output_cite_ann_args() -> None:
