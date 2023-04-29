@@ -1,11 +1,17 @@
 """A dynamically-created type for objects cited with a citation."""
 from abc import abstractmethod
 from functools import cache
-from typing import Any, Generic
+from typing import Any, Generic, Protocol, runtime_checkable
 
 from citecheck.core.citedmixin import _CitedMixin, _CitedMixinT, _get_cited_mixin
 from citecheck.core.types.citable import _Citable, _CitableT
 from citecheck.core.types.citation import Citation
+
+
+@runtime_checkable
+class _CitedProtocol(Protocol):
+    def _uncited_type(self) -> type[_Citable]:
+        ...
 
 
 class _CitedT(_CitedMixin, _Citable, Generic[_CitedMixinT, _CitableT]):

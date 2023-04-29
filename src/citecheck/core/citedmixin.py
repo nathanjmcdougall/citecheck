@@ -15,6 +15,9 @@ class _CitedMixin(Protocol):
     def __new__(cls: type[_T], value: _Citable) -> _T:
         ...
 
+    def __hash__(self) -> int:
+        ...
+
 
 _CitedMixinT = TypeVar("_CitedMixinT", bound=_CitedMixin)
 
