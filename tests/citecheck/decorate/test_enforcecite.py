@@ -1,9 +1,15 @@
 """Test the enforce_cite decorator."""
 from typing import Annotated as Ann
 
+import pytest
+
 from citecheck.core.cite import Cite
 from citecheck.core.citeas import CiteAs
-from citecheck.decorate.cite_output import _get_cite_ann_args, _get_output_cite_ann_args
+from citecheck.decorate.cite_output import (
+    _get_cite_ann_args,
+    _get_output_cite_ann_args,
+    cite_output,
+)
 from citecheck.decorate.enforcecite import enforcecite
 
 
@@ -27,6 +33,15 @@ class TestEnforceCite:
         assert my_func(_x)._citation == citation
         # pylint: enable=protected-access
 
+    def test_cite_output_no_ann(self) -> None:
+        """Check we get a ValueError when we don't have an Ann"""
+
+        with pytest.raises(ValueError):
+
+            @cite_output
+            def my_func() -> float:
+                return 1.0
+
 
 def test_get_output_cite_ann_args() -> None:
     """Test the _get_output_cite_ann_args function."""
@@ -40,6 +55,7 @@ def test_get_output_cite_ann_args() -> None:
         return value
 
     assert _get_output_cite_ann_args(my_func) == [Cite(citation), Cite(other)]
+    assert my_func(1.0) == 1.0
 
 
 def test_get_cite_ann_args() -> None:
