@@ -1,4 +1,4 @@
-"""Test the check_citations function."""
+"""Test the citedinput function."""
 from typing import Annotated as Ann
 
 import pytest
@@ -7,24 +7,24 @@ from citecheck.core.cite import Cite
 from citecheck.core.citeas import CiteAs
 from citecheck.core.cited import _get_cited_class
 from citecheck.core.errors import CitationError
-from citecheck.decorate.check_citations import check_citations
+from citecheck.decorate.citedinput import citedinput
 from citecheck.decorate.enforcecite import enforcecite
 
 
 class TestCheckCitations:
-    """Test the check_citations decorator."""
+    """Test the citedinput decorator."""
 
     @pytest.mark.parametrize(
         "decorator",
         [
-            check_citations,
+            citedinput,
             # when there are no output annotations then enforcecite is equivalent to
-            # check_citations
+            # citedinput
             enforcecite,
         ],
     )
     def test_basic(self, decorator):
-        """Test the check_citations decorator."""
+        """Test the citedinput decorator."""
 
         citation = "Einstein 2023"
 
@@ -44,7 +44,7 @@ class TestCheckCitations:
 
         citation = "Einstein 2023"
 
-        @check_citations()
+        @citedinput()
         def my_func(value: Ann[float, Cite(citation), Cite(citation)]) -> float:
             return value
 
@@ -61,7 +61,7 @@ class TestCheckCitations:
         citation1 = "Einstein 2023"
         citation2 = "Worsfold 2000"
 
-        @check_citations(compare_func=lambda x, y: y in x)
+        @citedinput(compare_func=lambda x, y: y in x)
         def my_func(value: Ann[float, Cite(citation1), Cite(citation2)]) -> float:
             return value
 
@@ -83,7 +83,7 @@ class TestCheckCitations:
 
         citation = "Einstein 2023"
 
-        @check_citations()
+        @citedinput()
         def my_func(
             value: Ann[float, Cite(citation)],
             other_value: Ann[int, Cite(citation)] = 1,

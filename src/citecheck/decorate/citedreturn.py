@@ -11,7 +11,7 @@ from citecheck.core.types.citable import _CitableT
 from citecheck.core.types.citation import Citation
 
 
-def cite_output(
+def citedreturn(
     func: Callable[..., _CitableT]
 ) -> Callable[..., _CitedT[_CitedMixinT, _CitableT]]:
     """A decorator to check ciations and cite output via function annotations."""
