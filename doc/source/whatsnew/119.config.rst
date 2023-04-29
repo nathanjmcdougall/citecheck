@@ -1,2 +1,0 @@
-isort was previously removed in favour of ruff, however ruff had not been properly
-configured to use its isort rules. This has been rectified.

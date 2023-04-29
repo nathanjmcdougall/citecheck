@@ -1,1 +1,0 @@
-A badge showing the PyPI downloads count has been restored to the README.

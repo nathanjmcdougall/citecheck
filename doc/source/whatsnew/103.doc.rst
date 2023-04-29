@@ -1,2 +1,0 @@
-The simple example in the README had an outdated syntax using ``CiteAs`` rather than
-``typing.Annotated``. This has been corrected.

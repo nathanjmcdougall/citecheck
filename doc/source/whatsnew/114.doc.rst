@@ -1,1 +1,0 @@
-The changelog entry for v0.2.0 had a typo of "pakcage". This has been corrected.
