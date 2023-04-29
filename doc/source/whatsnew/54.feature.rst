@@ -1,0 +1,3 @@
+The ``enforcecite`` decorator has been implemented (as showcased in the README),
+combining the ``check_citations`` decorator with the new ``cite_output`` decorator,
+which adds a citation to the return of the decorated function.
