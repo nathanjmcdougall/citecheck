@@ -24,7 +24,7 @@ class _CitedT(_CitedMixin, _Citable, Generic[_CitedMixinT, _CitableT]):
 def _get_cited_class(
     citable_type: type[_CitableT],
     citation: Citation,
-) -> type[_CitedT[_CitedMixin, _CitableT]]:
+) -> type[_CitedT[_CitedMixinT, _CitableT]]:
     # There seems to be a bug in mypy:
     # https://github.com/python/mypy/issues/14458
     # For now, we need to use Any with --allow-subclassing-any.

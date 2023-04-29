@@ -30,6 +30,8 @@ Consider this example (all authors and quantities are fictitious):
 The goal for citecheck is that you could implement this as follows:
 
 ```Python
+from citecheck import enforcecite, Cite
+
 @enforcecite
 def calc_vt_doe2021(
   qt: float,
