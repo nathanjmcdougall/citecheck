@@ -1,7 +1,7 @@
-<div align="center">
+<h1 align="center">
   <img src="doc/source/_static/logo/full_dark.svg#gh-dark-mode-only"><br>
   <img src="doc/source/_static/logo/full_light.svg#gh-light-mode-only"><br>
-</div>
+</h1>
 
 # citecheck: like typechecks, but for citations 📖⛓️
 
@@ -15,17 +15,23 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/nathanjmcdougall/citecheck/main.svg)](https://results.pre-commit.ci/latest/github/nathanjmcdougall/citecheck/main)
 [![codecov](https://codecov.io/gh/nathanjmcdougall/citecheck/branch/develop/graph/badge.svg?token=OUHWT2NL8O)](https://codecov.io/gh/nathanjmcdougall/citecheck)
-<!-- [![Downloads](https://static.pepy.tech/badge/citecheck)](https://pepy.tech/project/citecheck) -->
+[![Downloads](https://static.pepy.tech/badge/citecheck)](https://pepy.tech/project/citecheck)
 <!-- badges: end -->
 
 ## Quick example
+
 Consider this example (all authors and quantities are fictitious):
 
 - Doe (2021) published a method for estimating $V_t$ as a function of $q_p$ and $t$.
-- Bloggs (2023) published a method for estimating $R_m$ as a function of $V_t$ and $\rho$, with the explicit requirement that $V_t$ be estimated using the method of Doe (2021) in particular.
+- Bloggs (2023) published a method for estimating $R_m$ as a function of $V_t$ and
+  $\rho$, with the explicit requirement that $V_t$ be estimated using the method of
+  Doe (2021) in particular.
 
 The goal for citecheck is that you could implement this as follows:
+
 ```Python
+from citecheck import enforcecite, Cite
+
 @enforcecite
 def calc_vt_doe2021(
   qt: float,
@@ -35,13 +41,14 @@ def calc_vt_doe2021(
 
 @enforcecite
 def calc_rm_bloggs2023(
-  vt: CiteAs[float, "doe2021"],
+  vt: Annotated[float, Cite("doe2021")],
   rho: float
 ) -> Annotated[float, Cite("bloggs2023")]:
     ...
 ```
 
-Now, if we try to pass a value for $V_t$ that was not estimated using the method of Doe (2021), we would get an error:
+Now, if we try to pass a value for $V_t$ that was not estimated using the method of Doe
+(2021), we would get an error:
 
 ```Python
 calc_rm_bloggs2023(vt=1.0, rho=1.0) # Error
@@ -52,11 +59,13 @@ citecheck is still in development, but this is the general idea.
 
 ## When to use citecheck
 
-You should consider using citecheck when you are implementing functions corresponding to equations or methodologies in multiple papers which refer to one another.
+You should consider using citecheck when you are implementing functions corresponding to
+equations or methodologies in multiple papers which refer to one another.
 
 ## Getting Started with Development
 
-Use Linux, install [`pyenv`](https://github.com/pyenv/pyenv), and then run the setup script:
+Use Linux, install [`pyenv`](https://github.com/pyenv/pyenv), and then run the setup
+script:
 
 ```bash
 source .\scripts\dev-setup.sh

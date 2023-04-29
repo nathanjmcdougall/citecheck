@@ -23,6 +23,18 @@ classifiers = [
   "Topic :: Documentation",
   "Typing :: Typed",
 ]
+keywords = [
+  "citations",
+  "cite",
+  "bibliography",
+  "annotations",
+  "references",
+  "bibtex",
+  "research",
+  "academic",
+  "methodology",
+  "equations",
+]
 name = "citecheck"
 description = "Run-time protection of citation chains"
 authors = [
@@ -51,7 +63,7 @@ dev = [
   # These three need to be synced with the versions in .pre-commit-config.yaml
   "black==23.3.0",
   "pylint==3.0.0a6",
-  "ruff==0.0.262",
+  "ruff==0.0.263",
   # ^^^
 ]
 check = [
@@ -122,6 +134,48 @@ showcontent = true
 
 [tool.ruff]
 src = ["src"]
+select = [
+  # "A",
+  # "ANN",
+  # "ARG",
+  # "B",
+  # "BLE",
+  # "C90",
+  # "COM",
+  # "D",
+  # "DTZ",
+  "E",
+  # "EM",
+  # "ERA",
+  # "EXE",
+  "F",
+  # "FBT",
+  # "G",
+  "I",
+  # "ICN",
+  # "INP",
+  # "ISC",
+  # "N",
+  # "PD",
+  # "PGH",
+  # "PIE",
+  # "PL",
+  # "PT",
+  # "PTH",
+  # "Q",
+  # "RET",
+  # "RUF",
+  # "S",
+  # "SIM",
+  # "T10",
+  # "T20",
+  # "TCH",
+  # "TID",
+  # "TRY",
+  # "UP",
+  # "W",
+  # "YTT",
+]
 ignore = [
   "F403", # We often use * imports in __init__.py files, and other uses will be checked by pylint
 ]
@@ -156,10 +210,6 @@ console_output_style = ['progress']
 [tool.pytest.ini_options]
 pythonpath = "src"
 testpaths = ["tests"]
-
-[tool.isort]
-profile = "black"
-src_paths = ["src", "tests"]
 
 [tool.coverage.report]
 ignore_errors = true

@@ -1,3 +1,65 @@
+v0.3.0 (2023-04-29)
+===================
+
+Features
+--------
+
+- An ``uncite`` function has been added to remove citations from cited objects, restoring
+  them to their original type. (#11)
+- The ``check_citations`` (now named ``citedinput``) decorator now automatically uncites
+  all inputs to the functions it decorates. (#13)
+- The ``enforcecite`` decorator has been implemented (as showcased in the README),
+  combining the ``citedinput`` decorator with the new ``citedreturn`` decorator,
+  which adds a citation to the return of the decorated function. (#54, #111)
+
+
+Bugfixes
+--------
+
+- The ``check_citations`` previously raised a warning as an error when ``warn=True``,
+  rather than using ``warnings.warn``. This has been fixed. (#125)
+
+
+Improved Documentation
+----------------------
+
+- More detailed docstrings have been added to the core classes. (#6)
+- Keywords have been added to pyproject.toml for PyPI metadata. (#90)
+- The simple example in the README had an outdated syntax using ``CiteAs`` rather than
+  ``typing.Annotated``. This has been corrected. (#103)
+- A badge showing the PyPI downloads count has been restored to the README. (#106)
+- The changelog entry for v0.2.0 had a typo of "pakcage". This has been corrected. (#114)
+
+
+Deprecations and Removals
+-------------------------
+
+- Using the ``CiteAs`` class's item-getting function i.e. ``CiteAs[..., ...]`` is no
+  longer allowed. For now ``_get_cited_class`` can be used instead.
+
+
+Renamings and Relocations
+-------------------------
+
+- The ``check_citations`` decorator has been renamed to ``citedinput``. (#126)
+
+
+Improved Test Suite
+-------------------
+
+- A few tests were incorrectly typed, using ``int`` values in place of ``float``. This
+  has been fixed.
+
+
+Development Configuration Changes
+---------------------------------
+
+- A linter (markdownlint) for Markdown files has been added as a pre-commit, and the
+  README is now compliant with it. (#104)
+- isort was previously removed in favour of ruff, however ruff had not been properly
+  configured to use its isort rules. This has been rectified. (#119)
+
+
 0.2.0 (2023-04-21)
 ==================
 
@@ -23,7 +85,7 @@ Features
 Improved Documentation
 ----------------------
 
-- pyproject.toml has been configured with pakcage metadata for in PyPI. This includes
+- pyproject.toml has been configured with package metadata for in PyPI. This includes
   classifiers, project URLs, and the SPDX license identifier. (#5)
 - Badges in the README have been added and re-ordered. Also, one for the Python version
   used in development has been removed. (#43)
