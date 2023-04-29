@@ -23,6 +23,18 @@ classifiers = [
   "Topic :: Documentation",
   "Typing :: Typed",
 ]
+keywords = [
+  "citations",
+  "cite",
+  "bibliography",
+  "annotations",
+  "references",
+  "bibtex",
+  "research",
+  "academic",
+  "methodology",
+  "equations",
+]
 name = "citecheck"
 description = "Run-time protection of citation chains"
 authors = [
