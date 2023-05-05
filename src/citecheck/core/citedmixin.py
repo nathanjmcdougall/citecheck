@@ -41,7 +41,7 @@ def _get_cited_mixin(citation: Citation) -> type[_CitedMixin]:
             else:
                 raise TypeError(f"""{_super} must follow the Citable protocol""")
 
-            xprsn = f"{_super}.__new__({cls}, {value})"
+            xprsn = f"{_super}.__new__({cls}, {value}"
             try:
                 self = _super.__new__(cls, value)
             except TypeError as err:
@@ -52,7 +52,7 @@ def _get_cited_mixin(citation: Citation) -> type[_CitedMixin]:
                 ) from err
 
             if self != value:
-                raise ValueError(f"""{xprsn} must equal {value}""")
+                raise ValueError(f"""{xprsn} must equal {value}; got {self}""")
 
             return self
 
