@@ -1,5 +1,6 @@
 """Test the enforce_cite decorator."""
 from typing import Annotated as Ann
+from typing import TypeVar
 
 import pytest
 
@@ -12,20 +13,30 @@ from citecheck.decorate.citedreturn import (
 )
 from citecheck.decorate.enforcecite import enforcecite
 
+_T = TypeVar("_T")
+
 
 class TestEnforceCite:
     """Test the enforce_cite decorator."""
 
-    def test_basic(self) -> None:
+    @pytest.mark.parametrize(
+        "typefunc, _v",
+        [
+            (int, 5),
+            (float, 5.0),
+        ],
+    )
+    def test_basic(self, typefunc: type[_T], _v: _T) -> None:
         """Check a case where we check inputs and cite output too"""
 
         citation = "Einstein 2023"
 
         @enforcecite()
-        def my_func(value: Ann[float, Cite(citation)]) -> Ann[float, Cite(citation)]:
+        def my_func(
+            value: Ann[typefunc, Cite(citation)]
+        ) -> Ann[typefunc, Cite(citation)]:
             return value
 
-        _v = 5.0
         _x = CiteAs(_v, citation)
         assert my_func(_x) == _x
         assert _get_output_cite_ann_args(my_func)
