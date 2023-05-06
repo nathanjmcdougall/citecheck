@@ -25,6 +25,14 @@ def _get_compare_func(
     return compare_func
 
 
+def _unhashed_isinstance(obj: Any, cls: type[Any]) -> bool:
+    """Check if an object is an instance of a class without necessarily hashing."""
+    try:
+        return isinstance(obj, cls)
+    except TypeError:
+        return type(obj) in cls.__mro__
+
+
 def citedinput(
     warn: bool = False,
     compare_func: Callable[[Citation, Citation], bool] | None = None,
@@ -80,11 +88,11 @@ def citedinput(
             argslist = list(args)
 
             for idx, arg in enumerate(argslist):
-                if isinstance(arg, _CitedProtocol):
+                if _unhashed_isinstance(arg, _CitedProtocol):
                     argslist[idx] = uncite(arg)
 
             for key, value in kwargs.items():
-                if isinstance(value, _CitedProtocol):
+                if _unhashed_isinstance(value, _CitedProtocol):
                     kwargs[key] = uncite(value)
 
             # Call the function

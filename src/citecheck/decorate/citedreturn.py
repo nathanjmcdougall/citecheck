@@ -25,7 +25,9 @@ def citedreturn(
 
         # Add the citation to the output
         citable_type = type(output)
-        _cited_class = _get_cited_class(citable_type, citation)
+        _cited_class: type[_CitedT[_CitedMixinT, _CitableT]] = _get_cited_class(
+            citable_type, citation
+        )
         return _cited_class(output)
 
     return wrapper

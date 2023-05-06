@@ -11,7 +11,9 @@ class _CiteAsMeta(type):
         cls, value: _CitableT, citation: Citation
     ) -> _CitedT[_CitedMixinT, _CitableT]:
         citable_type = type(value)
-        _cited_class = _get_cited_class(citable_type, citation)
+        _cited_class: type[_CitedT[_CitedMixinT, _CitableT]] = _get_cited_class(
+            citable_type, citation
+        )
         return _cited_class(value)
 
 

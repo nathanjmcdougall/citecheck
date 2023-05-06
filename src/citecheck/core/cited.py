@@ -1,6 +1,5 @@
 """A dynamically-created type for objects cited with a citation."""
 from abc import abstractmethod
-from functools import cache
 from typing import Any, Generic, Protocol, runtime_checkable
 
 from citecheck.core.citedmixin import _CitedMixin, _CitedMixinT, _get_cited_mixin
@@ -20,8 +19,33 @@ class _CitedT(_CitedMixin, _Citable, Generic[_CitedMixinT, _CitableT]):
         ...
 
 
-@cache
 def _get_cited_class(
+    citable_type: type[_CitableT],
+    citation: Citation,
+) -> type[_CitedT[_CitedMixinT, _CitableT]]:
+    _cited_class_cache = _CitedClassCache[_CitedMixinT, _CitableT]()
+    cited_class = _cited_class_cache.get(citable_type, citation)
+    return cited_class
+
+
+class _CitedClassCache(Generic[_CitedMixinT, _CitableT]):
+    _cache: dict[int, type[_CitedT[_CitedMixinT, _CitableT]]] = {}
+
+    def get(
+        self, citable_type: type[_CitableT], citation: Citation
+    ) -> type[_CitedT[_CitedMixinT, _CitableT]]:
+        key = hash((hash(citation), id(citable_type)))
+
+        if key in self._cache:
+            cited_class: type[_CitedT[_CitedMixinT, _CitableT]] = self._cache[key]
+        else:
+            cited_class = _get_new_cited_class(citable_type, citation)
+            self._cache[key] = cited_class
+
+        return cited_class
+
+
+def _get_new_cited_class(
     citable_type: type[_CitableT],
     citation: Citation,
 ) -> type[_CitedT[_CitedMixinT, _CitableT]]:
