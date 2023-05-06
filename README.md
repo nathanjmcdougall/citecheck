@@ -31,19 +31,20 @@ The goal for citecheck is that you could implement this as follows:
 
 ```Python
 from citecheck import enforcecite, Cite
+from typing import Annotated as Ann
 
 @enforcecite
 def calc_vt_doe2021(
   qt: float,
   t: float
-) -> Annotated[float, Cite("doe2021")]:
+) -> Ann[float, Cite("doe2021")]:
     ...
 
 @enforcecite
 def calc_rm_bloggs2023(
-  vt: Annotated[float, Cite("doe2021")],
+  vt: Ann[float, Cite("doe2021")],
   rho: float
-) -> Annotated[float, Cite("bloggs2023")]:
+) -> Ann[float, Cite("bloggs2023")]:
     ...
 ```
 
