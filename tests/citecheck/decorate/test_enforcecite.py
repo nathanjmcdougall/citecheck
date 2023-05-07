@@ -57,7 +57,7 @@ class TestEnforceCite:
             return np.array([1.0, 2.0])
 
         _v = np.array([1.0, 2.0])
-        _x = CiteAs(_v, citation)
+        _x = add_cite(_v, citation)
         assert np.all(my_func(_x) == _x)
         # pylint: disable=protected-access,no-member
         assert my_func(_x)._citation == citation
