@@ -3,8 +3,8 @@ from typing import Annotated as Ann
 
 import pytest
 
+from citecheck.core.add_cite import add_cite
 from citecheck.core.cite import Cite
-from citecheck.core.citeas import CiteAs
 from citecheck.core.cited import _get_cited_class
 from citecheck.core.errors import CitationError
 from citecheck.decorate.citedinput import citedinput
@@ -33,11 +33,11 @@ class TestCheckCitations:
             return value
 
         _v = 5.0
-        _x = CiteAs(_v, citation)
+        _x = add_cite(_v, citation)
         assert my_func(_x) == _v
 
         with pytest.raises(CitationError):
-            assert my_func(CiteAs(_v, "Frank 2022"))
+            assert my_func(add_cite(_v, "Frank 2022"))
 
     def test_multiple_same(self):
         """Test multiple identical citations"""
@@ -49,11 +49,11 @@ class TestCheckCitations:
             return value
 
         _v = 5.0
-        _x = CiteAs(_v, citation)
+        _x = add_cite(_v, citation)
         assert my_func(_x) == _v
 
         with pytest.raises(CitationError):
-            assert my_func(CiteAs(_v, "Frank 2022"))
+            assert my_func(add_cite(_v, "Frank 2022"))
 
     def test_multiple_different(self):
         """Test multiple identical citations"""
@@ -66,13 +66,13 @@ class TestCheckCitations:
             return value
 
         _v = 5.0
-        _x = CiteAs(_v, citation1)
+        _x = add_cite(_v, citation1)
         assert my_func(_x) == _v
-        _y = CiteAs(_v, citation2)
+        _y = add_cite(_v, citation2)
         assert my_func(_y) == _v
 
         with pytest.raises(CitationError):
-            assert my_func(CiteAs(_v, "Frank 2022"))
+            assert my_func(add_cite(_v, "Frank 2022"))
 
     def test_uncited_within_decorated(self):
         """Check that citations are automatically removed be the decorator
@@ -97,5 +97,5 @@ class TestCheckCitations:
             return value
 
         _v = 5.0
-        _x = CiteAs(_v, citation)
+        _x = add_cite(_v, citation)
         assert my_func(_x) == _v

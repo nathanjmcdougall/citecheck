@@ -1,16 +1,16 @@
-"""Test the CiteAs class."""
-from citecheck.core.citeas import CiteAs
+"""Test the add_cite function."""
+from citecheck.core.add_cite import add_cite
 from citecheck.core.cited import _get_cited_class
 
 
 class TestCiteAs:
-    """Test the CiteAs class."""
+    """Test the add_cite function."""
 
     def test_call(self) -> None:
-        """Test the citeas function."""
+        """Test the add_cite function."""
         citation = "Einstein 2023"
         _v = 5
-        _x = CiteAs(_v, citation)
+        _x = add_cite(_v, citation)
 
         # pylint: disable=protected-access
         assert _x._citation == citation
@@ -22,22 +22,22 @@ class TestCiteAs:
         assert isinstance(_get_cited_class(int, "example"), type)
 
     def test_subtype(self) -> None:
-        """Test that CiteAs is a subtype of the base type."""
+        """Test that _get_cited_class gives a subtype of the base type."""
         value = 5
         base_type = type(value)
 
         assert issubclass(_get_cited_class(base_type, "example"), base_type)
 
     def test_isinstance_of_base(self) -> None:
-        """Test that CiteAs is an instance of the base type."""
+        """Test that add_cite gives an instance of the base type."""
         value = 5
         base_type = type(value)
 
-        assert isinstance(CiteAs(value, "example"), base_type)
+        assert isinstance(add_cite(value, "example"), base_type)
 
     def test_basic(self):
         value = 5
-        citable = CiteAs(value, "math")
+        citable = add_cite(value, "math")
         assert citable == value
         # pylint: disable=protected-access
         assert citable._citation == "math"
@@ -49,4 +49,4 @@ class TestCiteAs:
     def test_equality(self):
         value = 5
         citation = "math"
-        assert CiteAs(value, citation) == CiteAs(value, citation)
+        assert add_cite(value, citation) == add_cite(value, citation)

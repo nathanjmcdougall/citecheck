@@ -11,7 +11,7 @@ _T = TypeVar("_T", bound=object)
 def uncite(value: _CitedProtocol) -> _Citable:
     """Remove the citation from a cited object.
 
-    This function is the inverse of :class:`citecheck.core.citeas.CiteAs`.
+    This function is the inverse of :class:`citecheck.core.add_cite.add_cite`.
 
     Args:
         value: The cited object.
