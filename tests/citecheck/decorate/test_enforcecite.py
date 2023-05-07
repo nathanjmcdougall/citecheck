@@ -3,8 +3,8 @@ from typing import Annotated as Ann
 
 import pytest
 
+from citecheck.core.add_cite import add_cite
 from citecheck.core.cite import Cite
-from citecheck.core.citeas import CiteAs
 from citecheck.decorate.citedreturn import (
     _get_cite_ann_args,
     _get_output_cite_ann_args,
@@ -26,7 +26,7 @@ class TestEnforceCite:
             return value
 
         _v = 5.0
-        _x = CiteAs(_v, citation)
+        _x = add_cite(_v, citation)
         assert my_func(_x) == _x
         assert _get_output_cite_ann_args(my_func)
         # pylint: disable=protected-access
