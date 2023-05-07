@@ -1,3 +1,0 @@
-The ``enforcecite`` decorator has been implemented (as showcased in the README),
-combining the ``citedinput`` decorator with the new ``citedreturn`` decorator,
-which adds a citation to the return of the decorated function.

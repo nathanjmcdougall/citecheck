@@ -1,2 +1,0 @@
-A linter (markdownlint) for Markdown files has been added as a pre-commit, and the
-README is now compliant with it.

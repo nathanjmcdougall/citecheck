@@ -23,6 +23,18 @@ classifiers = [
   "Topic :: Documentation",
   "Typing :: Typed",
 ]
+keywords = [
+  "citations",
+  "cite",
+  "bibliography",
+  "annotations",
+  "references",
+  "bibtex",
+  "research",
+  "academic",
+  "methodology",
+  "equations",
+]
 name = "citecheck"
 description = "Run-time protection of citation chains"
 authors = [
@@ -51,7 +63,7 @@ dev = [
   # These three need to be synced with the versions in .pre-commit-config.yaml
   "black==23.3.0",
   "pylint==3.0.0a6",
-  "ruff==0.0.263",
+  "ruff==0.0.265",
   # ^^^
 ]
 check = [
