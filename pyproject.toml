@@ -62,7 +62,7 @@ dev = [
   "setuptools_scm[toml]",
   # These three need to be synced with the versions in .pre-commit-config.yaml
   "black==23.3.0",
-  "pylint==3.0.0a6",
+  "pylint==3.0.0a7",
   "ruff==0.0.265",
   # ^^^
 ]
