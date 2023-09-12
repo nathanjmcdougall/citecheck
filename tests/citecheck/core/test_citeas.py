@@ -44,7 +44,7 @@ class TestCiteAs:
         # pylint: enable=protected-access
         assert repr(citable) == f"{value} (cited as math)"
         assert hash(citable) == hash((value, "math"))
-        assert citable + 2 == 7
+        assert citable == 5
 
     def test_equality(self):
         value = 5

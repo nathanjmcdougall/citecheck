@@ -20,9 +20,7 @@ def _eq_compare(citation1: _CitationT, citation2: _CitationT) -> bool:
 def _get_compare_func(
     compare_func: Callable[[Citation, Citation], bool] | None,
 ) -> Callable[[Citation, Citation], bool]:
-    if compare_func is None:
-        return _eq_compare
-    return compare_func
+    return _eq_compare if compare_func is None else compare_func
 
 
 def citedinput(

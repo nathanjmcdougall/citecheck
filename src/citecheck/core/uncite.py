@@ -21,8 +21,4 @@ def uncite(value: _CitedProtocol) -> _Citable:
     """
     # pylint: disable=protected-access
     uncited_type = value._uncited_type()
-    # pylint: enable=protected-access
-
-    uncited = uncited_type.__new__(uncited_type, value)
-
-    return uncited
+    return uncited_type.__new__(uncited_type, value)

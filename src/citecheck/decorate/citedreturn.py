@@ -58,8 +58,7 @@ def _get_output_citation(func: Callable[..., Any]) -> Citation:
 
 def _get_output_cite_ann_args(func: Callable[..., Any]) -> list[Cite]:
     ann = _get_return_ann(func)
-    ann_args = _get_cite_ann_args(ann)
-    return ann_args
+    return _get_cite_ann_args(ann)
 
 
 def _get_return_ann(func: Callable[..., Any]) -> Any | None:
@@ -70,6 +69,4 @@ def _get_cite_ann_args(ann: Any) -> list[Cite]:
     if get_origin(ann) is not Annotated:
         return []
 
-    ann_args = [arg for arg in get_args(ann) if isinstance(arg, Cite)]
-
-    return ann_args
+    return [arg for arg in get_args(ann) if isinstance(arg, Cite)]

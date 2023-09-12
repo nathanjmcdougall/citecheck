@@ -26,6 +26,8 @@ _CitedMixinT = TypeVar("_CitedMixinT", bound=_CitedMixin)
 def _get_cited_mixin(citation: Citation) -> type[_CitedMixin]:
     _S = TypeVar("_S", bound="CitedMixin")
 
+
+
     class CitedMixin:
         """A Mixin class to add a fixed citation to another class"""
 
@@ -36,9 +38,7 @@ def _get_cited_mixin(citation: Citation) -> type[_CitedMixin]:
 
             # Clumsy syntax because of a bug in pylint:
             # https://github.com/pylint-dev/pylint/issues/8554
-            if isinstance(_super, _Citable):
-                pass
-            else:
+            if not isinstance(_super, _Citable):
                 raise TypeError(f"""{_super} must follow the Citable protocol""")
 
             xprsn = f"{_super}.__new__({cls}, {value})"
@@ -55,5 +55,6 @@ def _get_cited_mixin(citation: Citation) -> type[_CitedMixin]:
                 raise ValueError(f"""{xprsn} must equal {value}""")
 
             return self
+
 
     return CitedMixin
