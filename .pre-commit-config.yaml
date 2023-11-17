@@ -15,7 +15,7 @@ ci:
   autofix_prs: false
 repos:
   - repo: https://github.com/abravalheri/validate-pyproject
-    rev: v0.12.2
+    rev: v0.15
     hooks:
       - id: validate-pyproject
 
@@ -26,7 +26,7 @@ repos:
         files: ^src/
 
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.11.0
     hooks:
       - id: black
 
@@ -37,32 +37,32 @@ repos:
         args: ["--create", "--python-folders", "src/citecheck,tests"]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: debug-statements
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.265
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.5
     hooks:
       - id: ruff
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.2.0
+    rev: v1.7.0
     hooks:
       - id: mypy
         args: ["."]
         pass_filenames: false
 
   - repo: https://github.com/pycqa/pylint
-    rev: v3.0.0a6
+    rev: v3.0.1
     hooks:
       - id: pylint
         args: ["--disable", "fixme"]
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.34.0
+    rev: v0.37.0
     hooks:
       - id: markdownlint
 

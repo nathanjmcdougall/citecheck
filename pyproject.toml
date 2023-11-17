@@ -61,14 +61,14 @@ dev = [
   "pip-tools",
   "setuptools_scm[toml]",
   # These three need to be synced with the versions in .pre-commit-config.yaml
-  "black==23.3.0",
-  "pylint==3.0.0a6",
-  "ruff==0.0.265",
+  "black==23.11.0",
+  "pylint==3.0.1",
+  "ruff==0.1.5",
   # ^^^
 ]
 check = [
   "pre-commit",
-  "mypy==1.2.0", # Sync with the version in .pre-commit-config.yaml
+  "mypy==1.7.0", # Sync with the version in .pre-commit-config.yaml
 ]
 test = ["pytest", "coverage[toml]", "pytest-cov"]
 notebook = ["ipykernel", "IPython"]
@@ -96,6 +96,8 @@ allow_subclassing_any = true
 strict = true
 exclude = ['tests/', 'doc/']
 mypy_path = ["src"]
+warn_unused_ignores = false
+
 
 [tool.towncrier]
 directory = "doc/source/whatsnew"
