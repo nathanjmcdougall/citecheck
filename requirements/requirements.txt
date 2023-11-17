@@ -108,7 +108,7 @@ matplotlib-inline==0.1.6
     #   ipython
 mccabe==0.7.0
     # via pylint
-mypy==1.2.0
+mypy==1.7.0
     # via citecheck (pyproject.toml)
 mypy-extensions==1.0.0
     # via
