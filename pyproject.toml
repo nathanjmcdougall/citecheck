@@ -61,9 +61,9 @@ dev = [
   "pip-tools",
   "setuptools_scm[toml]",
   # These three need to be synced with the versions in .pre-commit-config.yaml
-  "black==23.3.0",
-  "pylint==3.0.0a6",
-  "ruff==0.0.265",
+  "black==23.11.0",
+  "pylint==3.0.1",
+  "ruff==0.1.5",
   # ^^^
 ]
 check = [

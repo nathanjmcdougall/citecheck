@@ -7,6 +7,11 @@ pip-compile \
     --extra notebook \
     --extra profile \
     --extra viz \
+    --no-allow-unsafe \
+    --unsafe-package=pywin32 \
+    --unsafe-package=pip \
+    --unsafe-package=distribute \
+    --unsafe-package=setuptools \
     --output-file="requirements/requirements.txt" \
     --resolver=backtracking \
     --quiet \
@@ -16,6 +21,11 @@ pip-compile \
 pip-compile \
     --extra check \
     --extra test \
+    --no-allow-unsafe \
+    --unsafe-package=pywin32 \
+    --unsafe-package=pip \
+    --unsafe-package=distribute \
+    --unsafe-package=setuptools \
     --output-file="requirements/ci-requirements.txt" \
     --resolver=backtracking \
     --quiet \
