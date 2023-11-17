@@ -96,6 +96,8 @@ allow_subclassing_any = true
 strict = true
 exclude = ['tests/', 'doc/']
 mypy_path = ["src"]
+warn_unused_ignores = false
+
 
 [tool.towncrier]
 directory = "doc/source/whatsnew"
