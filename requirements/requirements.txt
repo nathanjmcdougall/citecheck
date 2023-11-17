@@ -235,7 +235,7 @@ tomli==2.0.1
     #   towncrier
 tomlkit==0.11.7
     # via pylint
-tornado==6.3.2
+tornado==6.3.3
     # via
     #   ipykernel
     #   jupyter-client
