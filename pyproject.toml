@@ -63,7 +63,7 @@ dev = [
   # These three need to be synced with the versions in .pre-commit-config.yaml
   "black==23.11.0",
   "pylint==3.0.1",
-  "ruff==0.1.5",
+  "ruff==0.1.9",
   # ^^^
 ]
 check = [
